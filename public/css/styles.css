@@ -1,7 +1,7 @@
 body {
   margin: 0;
   font-family: Arial, sans-serif;
-  background-color:rgb(245, 245, 245);
+  background-color: rgb(245, 245, 245);
   color: #2d2f31;
 }
 
@@ -17,7 +17,7 @@ header {
   padding: 10px 100px;
   height: 50px;
   font-family: "Manrope", sans-serif;
-  border-style: solid ;
+  border-style: solid;
   border-width: medium;
   border-color: #ddd;
 }
@@ -75,7 +75,8 @@ header {
   align-items: center;
 }
 
-.navbar-right a, .categories a {
+.navbar-right a,
+.categories a {
   text-decoration: none;
   color: rgb(87, 87, 87);
   margin-left: 15px;
@@ -94,11 +95,11 @@ header {
   text-align: center;
   height: 326px;
 }
-#slider input[type=radio] {
+#slider input[type="radio"] {
   display: none;
 }
 #slider label {
-  cursor:pointer;
+  cursor: pointer;
   text-decoration: none;
 }
 #slides {
@@ -125,14 +126,14 @@ header {
   margin-left: -300%;
 }
 #slides .inner {
-  transition: margin-left 800ms cubic-bezier(0.770, 0.000, 0.175, 1.000);
+  transition: margin-left 800ms cubic-bezier(0.77, 0, 0.175, 1);
   width: 400%;
   line-height: 0;
   height: 300px;
 }
 #slides .slide {
   width: 25%;
-  float:left;
+  float: left;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -140,16 +141,16 @@ header {
   color: #fff;
 }
 #slides .slide_1 {
-  background: #00171F;
+  background: #00171f;
 }
 #slides .slide_2 {
   background: #003459;
 }
 #slides .slide_3 {
-  background: #007EA7;
+  background: #007ea7;
 }
 #slides .slide_4 {
-  background: #00A8E8;
+  background: #00a8e8;
 }
 #controls {
   margin: -180px 0 0 0;
@@ -163,7 +164,7 @@ header {
   display: none;
   width: 50px;
   height: 50px;
-  opacity: .4;
+  opacity: 0.4;
 }
 #controls label:hover {
   opacity: 1;
@@ -173,7 +174,7 @@ header {
 #slide3:checked ~ #controls label:nth-child(4),
 #slide4:checked ~ #controls label:nth-child(1) {
   background: url(https://image.flaticon.com/icons/svg/130/130884.svg) no-repeat;
-  float:right;
+  float: right;
   margin: 0 -50px 0 0;
   display: block;
 }
@@ -182,7 +183,7 @@ header {
 #slide3:checked ~ #controls label:nth-last-child(4),
 #slide4:checked ~ #controls label:nth-last-child(1) {
   background: url(https://image.flaticon.com/icons/svg/130/130882.svg) no-repeat;
-  float:left;
+  float: left;
   margin: 0 0 0 -50px;
   display: block;
 }
@@ -194,7 +195,7 @@ header {
   display: inline-block;
   width: 10px;
   height: 10px;
-  border-radius:100%;
+  border-radius: 100%;
   background: #ccc;
   margin: 0 10px;
 }
@@ -213,22 +214,23 @@ header {
   #slide2:checked ~ #controls label:nth-last-child(3),
   #slide3:checked ~ #controls label:nth-last-child(4),
   #slide4:checked ~ #controls label:nth-last-child(1) {
-     margin: 0;
+    margin: 0;
   }
   #slides {
-     max-width: calc(100% - 140px);
-     margin: 0 auto;
+    max-width: calc(100% - 140px);
+    margin: 0 auto;
   }
 }
 .center {
   margin: auto;
   width: 60%;
 }
-.startLearning, .nextLearn {
+.startLearning,
+.nextLearn {
   border-width: medium;
   margin-top: 50px;
 }
-.startLearning-top{
+.startLearning-top {
   display: flex;
   justify-content: space-between;
 }
@@ -261,7 +263,6 @@ header {
   padding: 0;
   margin: 0;
   border: 2px solid #d6d6d6;
-  
 }
 
 .banner {
@@ -279,8 +280,7 @@ header {
   margin-left: 50px;
 }
 
-.nextLearn{
-  
+.nextLearn {
 }
 .big-card {
   border: 2px solid #d6d6d6;
@@ -295,11 +295,11 @@ header {
 .mixed {
   margin-top: 50px;
   display: flex;
+  margin-bottom: 50px;
 }
 .mixed-left {
   width: 80%;
   display: flex;
-  justify-content:first baseline;
   flex-wrap: wrap;
   gap: 28px;
 }
@@ -309,8 +309,8 @@ header {
   padding-left: 20px;
   padding-bottom: 10px;
   border: 2px solid #d6d6d6;
-  width: 28%; ;
-  height: 300px ;
+  width: 28%;
+  height: 300px;
   align-items: center;
   background-position: center;
   background-size: 90%;
@@ -325,7 +325,7 @@ header {
   width: fit-content;
   padding: 5px;
   color: #a7a7a7;
-  border-radius:20px;
+  border-radius: 20px;
 }
 .mixed-right {
   width: 20%;
@@ -346,7 +346,6 @@ header {
 .ann-card {
   margin-bottom: 20px;
 }
-
 
 .footer {
   display: flex;
@@ -380,9 +379,7 @@ header {
   }
 }
 
-
-
-
-.additional-course-card:hover, .learn-card:hover {
+.additional-course-card:hover,
+.learn-card:hover {
   transform: translateY(-5px); /* Menggeser elemen ke bawah saat di hover */
 }
