@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/header.ejs") %>
+<body>
+<%- include("partials/navbar.ejs") %>
+
+<% if (locals.course) {  %>
+
+
+<div class="content-page">
+    <div class="left-content-page">
+        <div class="course-title">
+            <h1><%= lessons[lessonIndex].lesson_title %></h1>
+            <h4><em><%= course.judul %> Course</em></h4>
+            <div class="progress-container" data-progress="90">
+                <div class="progress-bar"></div>
+            </div>
+        </div>
+        <div class="lessons">
+            <h3><%= lessons.length %>lessons</h3>
+            <% lessons.forEach((lesson,index)=> { %>
+                <% if (index==lessonIndex) { %>
+                    <a class="lesson-bar selected" href="/training/content?id=<%= course.id %>&lessonIndex=<%= index %>">
+                        <p><%=lesson.lesson_title %></p> <input type="checkbox" name="Iscompeted?" id="">
+                    </a>
+                <%  }else { %>
+                <a class="lesson-bar" href="/training/content?id=<%= course.id %>&lessonIndex=<%= index %>">
+                    <p><%=lesson.lesson_title %></p> <input type="checkbox" name="Iscompeted?" id="">
+                </a>
+           <%  }}) %>
+            
+        </div>
+    </div>
+    <div class="right-content-page">
+        <div class="video">
+            <% if (lessons[lessonIndex].youtube_url) { %>
+            <iframe width="100%" height="900px"src="<%= lessons[lessonIndex].youtube_url %>"></iframe>
+            <% } else { %>
+            <video width="100%" controls>
+                <source src="mov_bbb.mp4" type="video/mp4">
+                <source src="mov_bbb.ogg" type="video/ogg">
+                Your browser does not support HTML video.
+            </video>
+            <% } %>
+            
+        </div>
+        <div class="detail-attachment">
+            <em>lesson attachment</em>
+            <a href="" class="button">Next lesson</a>
+        <% } %>
+        </div>
+    </div>
+</div>
+
+
+<script src="https://kit.fontawesome.com/462e5cdfa2.js" crossorigin="anonymous"></script>
+<script src="/js/index.js"></script>
+</body> 
+</html>

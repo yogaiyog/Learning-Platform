@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include("partials/header.ejs") %>
+<body>
+<%- include("partials/navbar.ejs") %>
+
+<div class="button-row center">
+    <a href="/" class="grey-button">Additional Course </a>
+    <a href="/training/content?id=<%= course.id %>" class="button enroll">Enroll Course</a>
+  </div>
+  
+
+<div class="course-body center">
+    <div class="left-course-body">
+        <img src="<%= course.image_source %>" alt="<%= course.judul %>">
+        <div class="course-content">
+            <h1><%= course.judul %></h1>
+            <div class="ratings">
+                <span><%= course.rating %></span>
+                <% for (let i = 0; i < course.rating; i++) { %>
+                    <i class="fa-solid fa-star" style="color: #ffd43b"></i>
+                <% } %>
+                <% for (let i = course.rating; i < 5; i++) { %>
+                    <i class="fa-solid fa-star" style="color: #dcdcdc"></i>
+                <% } %>
+            </div>
+            <div class="content-nav">
+                <a href="#" data-section="detail" class="nav-active">Details</a>
+                <a href="#" data-section="lesson">Lessons</a>
+                <a href="#" data-section="attachment">Attachment</a>
+                <a href="#" data-section="certificate">Certificate</a>
+                <a href="#" data-section="reviews">Reviews</a>
+            </div>
+            <div class="content">
+                <div class="detail section active">
+                    <h1>Detail</h1>
+                    <p><%= course.detail %></p>
+                </div>
+                <div class="lesson section">
+                    <% if (lessons && lessons.length > 0) { %>
+                        <% lessons.forEach((lesson, index) => { %>
+                            <div class="bar">
+                                <div class="lesson-title">
+                                    <h3><%= index + 1 %>. <%= lesson.lesson_title %></h3>
+                                    <small>video </small><span><i class="fa-solid fa-film" style="color: #74C0FC;"></i></span>
+                                </div>
+                                <a class="video-time" href="<%= lesson.lesson_url %>">Watch Lesson</a>
+                            </div>
+                        <% }) %>
+                    <% } else { %>
+                        <p>No lessons available</p>
+                    <% } %>
+                </div>
+                <div class="attachment section">
+                    <p><%= course.attachment %></p>
+                </div>
+                <div class="certificate section">
+                    <p>Finish the course to get a certificate</p>
+                </div>
+                <div class="reviews section">
+                    <h1>0 Reviews</h1>
+                    <hr>
+                    This is reviews or comments from students
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right-course-body">
+        <h3>Course Features</h3>
+        <div class="course-feature">
+            <div class="row">
+                <div class="row-name"><i class="fa-regular fa-clock" style="color:#74C0FC;"></i><small> Duration</small></div>
+                <div class="value"><small><%= course.waktu %></small></div>
+            </div>
+            <div class="row">
+                <div class="row-name"><i class="fa-solid fa-book" style="color: #74C0FC"></i><small> Lessons</small></div>
+                <div class="value"><small><%= course.total_lesson %></small></div>
+            </div>
+            <div class="row">
+                <div class="row-name"><i class="fa-solid fa-feather" style="color: #74C0FC;"></i><small> Question</small></div>
+                <div class="value"><small>20</small></div>
+            </div>
+            <div class="row">
+                <div class="row-name"><i class="fa-solid fa-reply-all" style="color: #74C0FC;"></i><small> Max Retake</small></div>
+                <div class="value"><small>3x</small></div>
+            </div>
+            <div class="row">
+                <div class="row-name"><i class="fa-solid fa-graduation-cap" style="color: #74C0FC;"></i><small> Certificate</small></div>
+                <div class="value"><small>Yes</small></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<%- include("partials/footer.ejs") %>
+<script src="https://kit.fontawesome.com/462e5cdfa2.js" crossorigin="anonymous"></script>
+<script src="/js/index.js"></script>
+</body>
+</html>
