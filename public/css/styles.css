@@ -191,13 +191,21 @@ header {
 }
 
 .learn-card {
-  text-align: center;
+  text-align: left;
   background-color: #ffffff;
   width: calc((100% - 32px) / 2);
   display: flex;
   height: 270px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
   transition: transform 0.3s ease;
+}
+.judul-card {
+  line-height: 10px;
+}
+.learn-card p {
+  margin: auto;
+  line-height: 20px;
+  width: 80%;
 }
 .learn-card img {
   width: 40%;
@@ -207,12 +215,18 @@ header {
 .content-card {
   padding: 0;
   margin: 0;
-  margin-top: 25px;
   display: flex;
   align-items: center;
   flex-direction: column;
   justify-content: space-between;
   /* border: 2px solid #d6d6d6; */
+}
+.card-foot{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 25px;
+  width: 80%;
 }
 
 /* banner-------------------------------------- */
@@ -484,6 +498,7 @@ CONTENT PAGE  ------------------------------------------------------------------
 margin: 0;
 font-weight: 200;
 }
+
 .progress-container {
   width: 100%;
   background-color: #e0e0e0;
@@ -491,14 +506,27 @@ font-weight: 200;
   margin: 0;
   position: relative;
 }
+
 .progress-bar {
   height: 20px;
-  background-color: #cb6ce7 ;
+  background-color: #cb6ce7;
   text-align: center;
   line-height: 20px;
   color: white;
-  transition: width 0.25s;
+  transition: width 1s ease-in-out; /* Smooth animation */
 }
+
+.progress-text {
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  height: 20px;
+  line-height: 20px;
+  color: rgb(0, 0, 0); /* Optionally, you can change the color to better contrast with the background */
+  font-weight: 200;
+}
+
 
 .lessons {
   margin: 0 20px;

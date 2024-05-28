@@ -1,4 +1,4 @@
- -- menghitung total lessons-------------------------------
+ -- menghitung total_lessons-------------------------------
 
 UPDATE additional_course
 SET total_lesson = (
@@ -12,36 +12,57 @@ WHERE id IN (
     FROM additional_course_lesson
 );
 
+---
 
--- buat tabel student_lesson_progres---------------------------
+UPDATE main_course
+SET total_lesson = (
+    SELECT COUNT(main_course_lesson.id)
+    FROM main_course_lesson
+    WHERE main_course.id = main_course_lesson.main_course_id
+    GROUP BY main_course_id
+)
+WHERE id IN (
+    SELECT DISTINCT main_course_id
+    FROM main_course_lesson
+);
 
-CREATE TABLE student_course_progress (
-    student_course_id SERIAL PRIMARY KEY,
+
+-- Membuat tabel student_additionalcourse_progress
+CREATE TABLE IF NOT EXISTS student_additionalcourse_progress (
+    student_additionalcourse_id SERIAL PRIMARY KEY,
     nama VARCHAR(50),
     student_id INTEGER,
-    course_id INTEGER,
+    lesson_id INTEGER,
     lesson_title VARCHAR(255),
-    complete BOOLEAN DEFAULT FALSE
+    complete BOOLEAN DEFAULT FALSE,
+    CONSTRAINT unique_student_additionalcourse_lesson UNIQUE (student_id, lesson_id)
 );
-        -- Masukkan data gabungan dari tabel student dan main_course_lesson
-INSERT INTO student_course_progress (nama, student_id, course_id, lesson_title, complete)
+
+
+INSERT INTO student_additionalcourse_progress (nama, student_id, lesson_id, lesson_title, complete)
 SELECT
     s.nama,
-    s.id,  
-    m.main_course_id,
-    m.lesson_title,
-    FALSE  -- Set complete to false for each row
+    s.id AS student_id,
+    a.id AS lesson_id,
+    a.lesson_title,
+    FALSE
 FROM
     student s
 CROSS JOIN
-    main_course_lesson m;
+    additional_course_lesson a
+WHERE
+    s.id = 1
+ON CONFLICT (student_id, lesson_id) DO NOTHING;
  --------------------------------------------------
 
 ------ cari persentase total complete --------------
 SELECT
-    (SUM(CASE WHEN complete = true THEN 1 ELSE 0 END)::decimal / COUNT(*)) * 100 AS percentage_true
+    course_id,
+    ROUND((SUM(CASE WHEN complete = true THEN 1 ELSE 0 END)::decimal / COUNT(*)) * 100) AS percentage_true
 FROM
     student_course_progress
-where 
-	course_id = 1
+WHERE 
+    student_id = 1 AND course_id IN (1, 2, 3)
+GROUP BY
+    course_id 
 

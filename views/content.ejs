@@ -6,7 +6,6 @@
 
 <% if (locals.course) {  %>
 
-
 <div class="content-page">
     <div class="left-content-page">
         <div class="course-title">
@@ -17,32 +16,33 @@
             </div>
         </div>
         <div class="lessons">
-            <h3><%= lessons.length %>lessons</h3>
-            <% lessons.forEach((lesson,index)=> { %>
-                <% if (index==lessonIndex) { %>
-                    <a class="lesson-bar selected" href="/training/content?id=<%= course.id %>&lessonIndex=<%= index %>">
-                        <p><%=lesson.lesson_title %></p> <input type="checkbox" name="Iscompeted?" id="">
+            <h3><%= lessons.length %> lessons</h3>
+            <% lessons.forEach((lesson, index) => { %>
+                <% if (index == lessonIndex) { %>
+                    <a class="lesson-bar selected" href="/training/content?id=<%= course.id %>&lessonIndex=<%= index %>&type=<%= lessonType %>">
+                        <p><%= lesson.lesson_title %></p>
+                        <input type="checkbox" name="IsCompleted?" <% if (progress[index] && progress[index].complete) { %>checked<% } %>>
                     </a>
-                <%  }else { %>
-                <a class="lesson-bar" href="/training/content?id=<%= course.id %>&lessonIndex=<%= index %>">
-                    <p><%=lesson.lesson_title %></p> <input type="checkbox" name="Iscompeted?" id="">
-                </a>
-           <%  }}) %>
-            
+                <% } else { %>
+                    <a class="lesson-bar" href="/training/content?id=<%= course.id %>&lessonIndex=<%= index %>&type=<%= lessonType %>">
+                        <p><%= lesson.lesson_title %></p>
+                        <input type="checkbox" name="" <% if (progress[index] && progress[index].complete) { %>checked<% } %>>
+                    </a>
+                <% } %>
+            <% }) %>
         </div>
     </div>
     <div class="right-content-page">
         <div class="video">
             <% if (lessons[lessonIndex].youtube_url) { %>
-            <iframe width="100%" height="900px"src="<%= lessons[lessonIndex].youtube_url %>"></iframe>
+                <iframe width="100%" height="900px" src="<%= lessons[lessonIndex].youtube_url %>"></iframe>
             <% } else { %>
-            <video width="100%" controls>
-                <source src="mov_bbb.mp4" type="video/mp4">
-                <source src="mov_bbb.ogg" type="video/ogg">
-                Your browser does not support HTML video.
-            </video>
+                <video width="100%" controls>
+                    <source src="mov_bbb.mp4" type="video/mp4">
+                    <source src="mov_bbb.ogg" type="video/ogg">
+                    Your browser does not support HTML video.
+                </video>
             <% } %>
-            
         </div>
         <div class="detail-attachment">
             <em>lesson attachment</em>
@@ -52,8 +52,7 @@
     </div>
 </div>
 
-
 <script src="https://kit.fontawesome.com/462e5cdfa2.js" crossorigin="anonymous"></script>
 <script src="/js/index.js"></script>
-</body> 
+</body>
 </html>

@@ -5,13 +5,20 @@
 <%- include("partials/navbar.ejs") %>
 
 <div class="button-row center">
-    <a href="/" class="grey-button">Additional Course </a>
-    <a href="/training/content?id=<%= course.id %>" class="button enroll">Enroll Course</a>
+    <% if (locals.type) {%>
+        <a href="/" class="grey-button">Main Course </a>
+        <a href="/training/content?id=<%= course.id %>&type=main" class="button enroll">Enroll Course</a>
+    <% } else { %>  
+        <a href="/" class="grey-button">Additional Course </a>
+        <a href="/training/content?id=<%= course.id %>" class="button enroll">Enroll Course</a>
+    <% } %>
+    
   </div>
   
 
 <div class="course-body center">
     <div class="left-course-body">
+        
         <img src="<%= course.image_source %>" alt="<%= course.judul %>">
         <div class="course-content">
             <h1><%= course.judul %></h1>
@@ -34,7 +41,7 @@
             <div class="content">
                 <div class="detail section active">
                     <h1>Detail</h1>
-                    <p><%= course.detail %></p>
+                    <p><%- course.detail.replace(/\n/g, '<br>') %></p>
                 </div>
                 <div class="lesson section">
                     <% if (lessons && lessons.length > 0) { %>
@@ -65,6 +72,7 @@
             </div>
         </div>
     </div>
+    
     <div class="right-course-body">
         <h3>Course Features</h3>
         <div class="course-feature">

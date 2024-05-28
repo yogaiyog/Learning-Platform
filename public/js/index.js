@@ -79,7 +79,16 @@ document.addEventListener('DOMContentLoaded', () => {
     progressContainers.forEach(container => {
         const progress = container.getAttribute('data-progress');
         const progressBar = container.querySelector('.progress-bar');
-        progressBar.style.width = `${progress}%`;
-        progressBar.innerText = `${progress}%`;
+        const progressText = container.querySelector('.progress-text');
+
+        progressText.innerText = `${progress}%`;
+
+        // Set initial width to 0 for animation
+        progressBar.style.width = '0%';
+
+        // Animate to the actual width
+        setTimeout(() => {
+            progressBar.style.width = `${progress}%`;
+        }, 100); // Small delay to allow initial width to be set
     });
 });

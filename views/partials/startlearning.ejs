@@ -1,27 +1,36 @@
-
+<% if (locals.mainCourses) { %>
 <div class="startLearning center">
     <div class="startLearning-top">
-      <h1>Lets Start Learning</h1>
-      <a href="">My learning</a>
+      <h1>Continue Your Learning</h1>
+      <a href="">Main Course ></a>
     </div>
     <div class="learn-cards">
-      <div class="learn-card">
-        <img
-          src="https://www.developer.com/wp-content/uploads/2021/09/Java-tutorials.jpg"
-          alt=""
-        />
-        <div class="content-card">
-          <h2>Title of content</h2>
-          <p>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Rerum
-            veritatis possimus voluptatibus cumque fugiat saepe porro atque
-            architecto?.
-          </p>
-          <div class="progress-container main" data-progress="90">
-            <div class="progress-bar"></div>
-        </div>
-        </div>
-      </div>
+        <% mainCourses.forEach((course, index)=>{ %>
+            <% if (index < 2)  { %>
+            <a href="/training/main?id=<%= course.id %>" class="learn-card">
+                <img
+                  src="<%=course.image_source%>"
+                />
+                <div class="content-card">
+                    <div class="judul-card">
+                        <h2><%= course.judul %></h2>
+                    </div>
+                  
+                  <p>
+                    <%= course.detail.substring(0,150) %> . . .
+                  </p>
+                  <div class="card-foot">
+                    <h6>Created by: <%= course.pembuat %></h6>
+                    <small><em><%= course.total_lesson %> lessons </em></small>
+                  </div>
+                  <div class="progress-container main" data-progress="<%= studentProgress[index].complete %>">
+                    <div class="progress-bar"></div>
+                    <div class="progress-text"></div>
+                  </div>
+                </div>
+            </a>
+       <% }})%>
       
+    <% } %>
     </div>
   </div>
