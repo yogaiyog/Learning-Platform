@@ -6,7 +6,7 @@
     </div>
     <div class="learn-cards">
         <% mainCourses.forEach((course, index)=>{ %>
-            <% if (index < 2)  { %>
+            <% if (index <= 2)  { %>
             <a href="/training/main?id=<%= course.id %>" class="learn-card">
                 <img
                   src="<%=course.image_source%>"

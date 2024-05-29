@@ -6,14 +6,18 @@
 
 <% if (locals.course) {  %>
 
-<div class="content-page">
+<div class="content-page" data-course-id="<%= course.id %>">
     <div class="left-content-page">
-        <div class="course-title">
+        <div class="course-title" style="background-image: linear-gradient(
+            rgba(0,212,255,0) 11%, rgba(0, 0, 0, 0.747) 71%, rgb(0, 0, 0) 100%
+            ),url(<%= course.image_source %>); ">
             <h1><%= lessons[lessonIndex].lesson_title %></h1>
-            <h4><em><%= course.judul %> Course</em></h4>
-            <div class="progress-container" data-progress="90">
+            <!-- <h4><em><%= course.judul %> Course</em></h4> -->
+            <!-- this for % bar -->
+            <div class="progress-container main" data-progress="<%= percentage %>">
                 <div class="progress-bar"></div>
-            </div>
+                <div class="progress-text"></div>
+              </div>
         </div>
         <div class="lessons">
             <h3><%= lessons.length %> lessons</h3>
@@ -21,12 +25,12 @@
                 <% if (index == lessonIndex) { %>
                     <a class="lesson-bar selected" href="/training/content?id=<%= course.id %>&lessonIndex=<%= index %>&type=<%= lessonType %>">
                         <p><%= lesson.lesson_title %></p>
-                        <input type="checkbox" name="IsCompleted?" <% if (progress[index] && progress[index].complete) { %>checked<% } %>>
+                        <input type="checkbox" class="lesson-checkbox" data-lesson-id="<%= lesson.id %>" <% if (progress[index] && progress[index].complete) { %>checked<% } %>>
                     </a>
                 <% } else { %>
                     <a class="lesson-bar" href="/training/content?id=<%= course.id %>&lessonIndex=<%= index %>&type=<%= lessonType %>">
                         <p><%= lesson.lesson_title %></p>
-                        <input type="checkbox" name="" <% if (progress[index] && progress[index].complete) { %>checked<% } %>>
+                        <input type="checkbox" class="lesson-checkbox" data-lesson-id="<%= lesson.id %>" <% if (progress[index] && progress[index].complete) { %>checked<% } %>>
                     </a>
                 <% } %>
             <% }) %>
@@ -53,6 +57,7 @@
 </div>
 
 <script src="https://kit.fontawesome.com/462e5cdfa2.js" crossorigin="anonymous"></script>
-<script src="/js/index.js"></script>
+<script src="/js/index.js"></script> <!-- Include the external JavaScript file -->
+<script src="/js/req.js"></script>
 </body>
 </html>

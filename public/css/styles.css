@@ -539,13 +539,16 @@ font-weight: 200;
   width: 100%;
 }
 .course-title {
-  background-color: #cb6ce7;
+  background-color: #696969;
   color: white;
   height: 300px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
 }
 .course-title, .lessons {
   display: flex;
-  justify-content: center; /* Mengatur elemen anak di tengah secara horizontal */
+  justify-content: flex-end; /* Mengatur elemen anak di tengah secara horizontal */
   align-items: center; /* Mengatur elemen anak di tengah secara vertikal */
   flex-direction: column; /* Mengatur elemen anak dalam kolom */
 }

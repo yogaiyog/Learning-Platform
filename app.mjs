@@ -1,6 +1,9 @@
 import express, { query } from "express";
 import pg from "pg";
 import bodyParser from "body-parser";
+import path from "path"; // Import path untuk membantu penanganan path
+import { fileURLToPath } from 'url'; // Import fileURLToPath untuk module ES6
+// import cors from "cors"; // Import paket cors
 
 const db = new pg.Client({
   user: "postgres",
@@ -28,15 +31,17 @@ app.use((req, res, next) => {
 
 app.get("/", async (req, res) => {
   const studentId = req.query.studentId ? req.query.studentId : 1;
-  const studentProgress = await db.query(`SELECT
-  course_id,
+  const studentProgress = await db.query(`
+  SELECT course_id,
     ROUND((SUM(CASE WHEN complete = true THEN 1 ELSE 0 END)::decimal / COUNT(*)) * 100) AS complete
   FROM
     student_course_progress
   WHERE 
-    student_id = $1 AND course_id IN (1, 2, 3)
+    student_id = $1 
   GROUP BY
-    course_id`,
+    course_id
+  ORDER BY course_id ASC 
+`,
      [studentId])
 
   const dataMainCourse = await db.query(`SELECT * FROM public.main_course ORDER BY id ASC`)
@@ -113,7 +118,6 @@ app.get("/training/content", async (req, res) => {
   const courseId = req.query.id;
   const lessonIndex = req.query.lessonIndex ? req.query.lessonIndex : 0;
   const lessonType   = req.query.type ? req.query.type : "additional";
-  console.log(courseId)
   if (courseId) {
     try {
       // check dan ambil data sesuai tipe kursus
@@ -136,9 +140,15 @@ app.get("/training/content", async (req, res) => {
           ORDER BY lesson_id ASC `, [1, courseId]);
       } 
       var progress = progressQuery.rows
+      const completedCount = progress.filter(item => item.complete).length;
+
+      // Menghitung persentase
+      const totalCount = progress.length;
+      const percentage = (completedCount / totalCount) * 100;
+
       if (courseQuery.rows.length > 0) {
         const course = courseQuery.rows[0];
-        res.render("content", { course , lessons:lessonQuery.rows, lessonIndex , lessonType, progress});
+        res.render("content", { course , lessons:lessonQuery.rows, lessonIndex , lessonType, progress, percentage});
       } else {
         res.status(404).json({ success: false, message: "Course not found" });
       }
@@ -149,6 +159,30 @@ app.get("/training/content", async (req, res) => {
     }
   } else {
     res.status(400).json({ success: false, message: "No course ID provided" });
+  }
+});
+
+
+// handle post complete lesson 
+
+app.post("/training/update-progress", async (req, res) => {
+  const courseId = req.query.id;
+  const lessonId = req.query.lessonId;
+
+console.log(lessonId)
+
+  if (courseId && lessonId) {
+      try {
+          // Update progress in the database
+          await db.query("UPDATE student_course_progress SET complete = true WHERE course_id = $1 AND lesson_id = $2", [courseId, lessonId]);
+
+          res.json({ success: true });
+      } catch (error) {
+          console.error("Error updating progress:", error);
+          res.status(500).json({ success: false, message: "Failed to update progress" });
+      }
+  } else {
+      res.status(400).json({ success: false, message: "Invalid course ID or lesson index" });
   }
 });
 
