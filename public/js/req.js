@@ -1,6 +1,8 @@
 document.addEventListener("DOMContentLoaded", function() {
     const contentPage = document.querySelector('.content-page');
     const courseId = contentPage.getAttribute('data-course-id');
+    const lessonType = contentPage.getAttribute('data-course-type');
+
 
     const checkboxes = document.querySelectorAll('.lesson-checkbox');
     checkboxes.forEach(checkbox => {
@@ -9,10 +11,9 @@ document.addEventListener("DOMContentLoaded", function() {
             const isChecked = this.checked;
 
             if (isChecked) {
-                
                 if (confirm("Complete this lesson?")) {
                     // Send request to update progress
-                    fetch(`/training/update-progress?id=${courseId}&lessonId=${lessonId}`, {
+                    fetch(`/training/update-progress?id=${courseId}&lessonId=${lessonId}&lessonType=${lessonType}`, {
                         method: 'POST',
                         headers: {
                             'Content-Type': 'application/json'
