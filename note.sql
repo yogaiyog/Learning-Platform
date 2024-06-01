@@ -66,3 +66,38 @@ WHERE
 GROUP BY
     course_id 
 
+------------- buat tabel student-task-------------
+
+CREATE TABLE student_task (
+    student_task_id SERIAL PRIMARY KEY,
+    nama_student VARCHAR(255),
+    student_id INT REFERENCES student(id),
+    task_title VARCHAR(255),
+    task_id INT REFERENCES task(id),
+    on_going BOOLEAN DEFAULT FALSE,
+    in_review BOOLEAN DEFAULT FALSE,
+    complete BOOLEAN DEFAULT FALSE,
+    CONSTRAINT one_status_true CHECK (
+        (on_going IS TRUE AND in_review IS FALSE AND complete IS FALSE) OR
+        (on_going IS FALSE AND in_review IS TRUE AND complete IS FALSE) OR
+        (on_going IS FALSE AND in_review IS FALSE AND complete IS TRUE) OR
+        (on_going IS FALSE AND in_review IS FALSE AND complete IS FALSE)
+    ),
+    CONSTRAINT unique_student_task UNIQUE (student_id, task_id)
+);
+
+INSERT INTO student_task (nama_student, student_id, task_title, task_id, on_going, in_review, complete)
+SELECT
+    s.nama AS nama_student,
+    s.id AS student_id,
+    t.task_title AS task_title,
+    t.id AS task_id,
+    FALSE AS on_going,
+    FALSE AS in_review,
+    FALSE AS complete
+FROM
+    student s
+CROSS JOIN
+    task t;
+
+    --------------------

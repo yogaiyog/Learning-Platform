@@ -58,9 +58,100 @@ app.get("/", async (req, res) => {
   res.render("index", {
     addCourse: datarows,
     studentProgress: studentProgress.rows,
-    mainCourses
+    mainCourses,
+    page:"main"
   });
 });
+
+app.get("/", async (req, res) => {
+  const studentId = req.query.studentId ? req.query.studentId : 1;
+  const studentProgress = await db.query(`
+    SELECT course_id,
+      ROUND((SUM(CASE WHEN complete = true THEN 1 ELSE 0 END)::decimal / COUNT(*)) * 100) AS complete
+    FROM
+      student_course_progress
+    WHERE 
+      student_id = $1 
+    GROUP BY
+      course_id
+    ORDER BY course_id ASC 
+  `, [studentId]);
+
+  const dataMainCourse = await db.query(`SELECT * FROM public.main_course ORDER BY id ASC`);
+  const mainCourses = dataMainCourse.rows;
+
+  const data = await db.query("SELECT * FROM additional_course");
+  const datarows = data.rows;
+
+  res.render("index", {
+    addCourse: datarows,
+    studentProgress: studentProgress.rows,
+    mainCourses,
+    page:"main"
+  });
+});
+
+
+app.get("/training-home", async (req, res) => {
+  const studentId = req.query.studentId ? req.query.studentId : 1;
+  const studentProgress = await db.query(`
+    SELECT course_id,
+      ROUND((SUM(CASE WHEN complete = true THEN 1 ELSE 0 END)::decimal / COUNT(*)) * 100) AS complete
+    FROM
+      student_course_progress
+    WHERE 
+      student_id = $1 
+    GROUP BY
+      course_id
+    ORDER BY course_id ASC 
+  `, [studentId]);
+
+  const studentProgressAdd = await db.query(`
+    SELECT course_id,
+      ROUND((SUM(CASE WHEN complete = true THEN 1 ELSE 0 END)::decimal / COUNT(*)) * 100) AS complete
+    FROM
+      student_additionalcourse_progress
+    WHERE 
+      student_id = $1
+    GROUP BY
+      course_id
+    ORDER BY course_id ASC 
+`, [studentId]);
+
+  const dataMainCourse = await db.query(`SELECT * FROM public.main_course ORDER BY id ASC`);
+  const mainCourses = dataMainCourse.rows;
+
+  const data = await db.query("SELECT * FROM additional_course");
+  const datarows = data.rows;
+
+  res.render("training.ejs", {
+    addCourses: datarows,
+    studentProgress: studentProgress.rows,
+    mainCourses,
+    studentProgressAdd: studentProgressAdd.rows,
+    page:"training"
+  });
+});
+
+//--------------task-page--------------------//
+
+app.get("/task", async (req, res)=>{
+  const studentId = req.query.studentId ? req.query.studentId : 1;
+  const dbStudentTask = await db.query(`SELECT * FROM student_task where student_id = $1 ORDER BY student_task_id ASC`, [studentId]);
+  const studentTask = dbStudentTask.rows
+  res.render("task.ejs", {
+    page:"task",
+    studentTask
+  });
+})
+
+//--------------------forum-page----------------//
+
+app.get("/forum", async (req, res)=>{
+  res.render("forum.ejs", {
+    page:"forum"
+  });
+})
 
 //-------------------------------------/training--------------------------//
 app.get("/training", async (req, res) => {
@@ -76,7 +167,8 @@ app.get("/training", async (req, res) => {
 
         res.render("course", {
           course: course,
-          lessons: lessons
+          lessons: lessons,
+          page:"training"
         });
       } else {
         res.status(404).json({ success: false, message: "Course not found" });
@@ -104,7 +196,8 @@ app.get("/training/main", async (req, res) => {
         res.render("course", {
           course: course,
           lessons: lessons,
-          type: "main"
+          type: "main",
+          page:"training"
         });
       } else {
         res.status(404).json({ success: false, message: "Course not found" });
@@ -117,6 +210,8 @@ app.get("/training/main", async (req, res) => {
     res.status(400).json({ success: false, message: "No course ID provided" });
   }
 });
+
+//----------------------------------//---------------------
 
 app.get("/training/content", async (req, res) => {
   const courseId = req.query.id;
@@ -166,7 +261,6 @@ app.post("/training/update-progress", async (req, res) => {
   const lessonId = req.query.lessonId;
   const lessonType = req.query.lessonType
 
-  console.log(lessonType)
 
   if (courseId && lessonId) {
     try {

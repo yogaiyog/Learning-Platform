@@ -92,3 +92,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 100); // Small delay to allow initial width to be set
     });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const links = document.querySelectorAll(".switch-content");
+  const sections = document.querySelectorAll(".content-section");
+
+  links.forEach(link => {
+    link.addEventListener("click", (event) => {
+      event.preventDefault();
+      const target = link.getAttribute("data-target");
+
+      // Remove 'selected-content' class from all links
+      links.forEach(l => l.classList.remove("selected-content"));
+
+      // Add 'selected-content' class to the clicked link
+      link.classList.add("selected-content");
+
+      // Hide all sections
+      sections.forEach(section => section.classList.add("hidden"));
+
+      // Show the target section
+      document.getElementById(target).classList.remove("hidden");
+
+      document.getElementById("trainingTitle").innerHTML = `${target} Course`
+    });
+  });
+});

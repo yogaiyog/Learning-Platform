@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("partials/header.ejs") %>
+<body>
+  <div class="main">
+    <%- include("partials/navbar.ejs") %>
+    <div class="center training-header">
+      <div class="switch">
+          <a href="#" class="switch-content selected-content" data-target="Main">
+              <p>Main Courses</p>
+          </a>      
+          <a href="#" class="switch-content" data-target="Additional">
+              <p>Additional Courses</p>
+          </a>      
+          <a href="#" class="switch-content" data-target="Completed">
+              <p>Completed Courses</p>
+          </a>      
+      </div> 
+      <div class="training-title">
+        <h1 id="trainingTitle">Main Courses</h1>
+      </div>
+    </div>
+
+    <div id="Main" class="content-section">
+      <%- include("partials/main.ejs") %>
+    </div>
+    <div id="Additional" class="content-section hidden">
+      <%- include("partials/additional.ejs") %>
+    </div>
+    <div id="Completed" class="content-section hidden">
+      <%- include("partials/complete.ejs") %>
+    </div>
+  </div>
+  
+    <footer class="footer">
+      <div class="footer-section">
+        <h3>About</h3>
+        <p>
+          We are a company dedicated to providing the best service possible. Our
+          mission is to make our customers happy with our outstanding products
+          and services.
+        </p>
+      </div>
+      <div class="footer-section">
+        <h3>Copyright</h3>
+        <p>&copy; 2024 By Yoga Adi Saputra. All rights reserved.</p>
+      </div>
+      <div class="footer-section">
+        <h3>Contact</h3>
+        <p>Email: contact@company.com</p>
+        <p>Phone: (123) 456-7890</p>
+        <p>Address: 123 Main Street, City, Country</p>
+      </div>
+  
+  </footer>
+
+
+  <script src="https://kit.fontawesome.com/462e5cdfa2.js" crossorigin="anonymous"></script>
+  <script src="/js/index.js"></script>
+</body>
+</html>

@@ -7,7 +7,7 @@
 <div class="timer-container"  >
     <div class="left-timer">
             <a href="/"><img src="/image/logoc.png" alt="Logo" /></a>
-            <a class="back" href=""><i class="fa-solid fa-angles-left" style="color: #ffffff;"></i></a>
+            <a class="back" href="http://localhost:3000/training/main?id=<%= course.id %>"><i class="fa-solid fa-angles-left" style="color: #ffffff;"></i></a>
     </div>
     <div class="right-timer">
         <small class="timer" id="timer">00:30</small>
@@ -16,12 +16,10 @@
 
 <div class="content-page" data-course-id="<%= course.id %>" data-course-type = "<%= lessonType %>">
     <div class="left-content-page">
-        <div class="course-title" style="background-image: linear-gradient(
-            rgba(0,212,255,0) 11%, rgba(0, 0, 0, 0.747) 71%, rgb(0, 0, 0) 100%
-            ),url(<%= course.image_source %>); ">
+        <div class="course-title" style="background-image: linear-gradient(rgba(0,212,255,0) 11%, rgba(0, 0, 0, 0.747) 71%, rgb(0, 0, 0) 100%),url(<%= course.image_source %>);">
             <h1><%= lessons[lessonIndex].lesson_title %></h1>
             <!-- this for % bar -->
-            <div class="progress-container main" data-progress="<%= percentage %>">
+            <div class="progress-container" data-progress="<%= percentage %>">
                 <div class="progress-bar"></div>
                 <div class="progress-text"></div>
               </div>
@@ -62,71 +60,13 @@
         </div>
     </div>
 </div>
-<script src="/js/req.js"></script>
+
 <script>
-    var tag = document.createElement('script');
-    var lessonDuration = 15; // in minutes
-    var count = lessonDuration * 60; // convert minutes to seconds
-
-    tag.src = "https://www.youtube.com/iframe_api";
-    var firstScriptTag = document.getElementsByTagName('script')[0];
-    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-
-    var player;
-    function onYouTubeIframeAPIReady() {
-        player = new YT.Player('player', {
-            height: '100%', // Set height to auto
-            width: '100%', // Set width to 100% of the parent element
-            videoId: '<%= lessons[lessonIndex].youtube_url %>', 
-            playerVars: {
-                'playsinline': 1
-            },
-            events: {
-                'onReady': onPlayerReady,
-                'onStateChange': onPlayerStateChange
-            }
-        });
-    }
-
-    // Format the time as MM:SS
-    function formatTime(seconds) {
-        var minutes = Math.floor(seconds / 60);
-        var remainingSeconds = seconds % 60;
-        return minutes.toString().padStart(2, '0') + ':' + remainingSeconds.toString().padStart(2, '0');
-    }
-
-    // Update timer display every second
-    setInterval(function() {
-        document.getElementById("timer").innerHTML = formatTime(count); // Display the time in MM:SS format
-    }, 1000);
-
-    function onPlayerReady(event) {
-        event.target.playVideo();
-    }
-
-    var countInterval;
-    function onPlayerStateChange(event) {
-        if (event.data == YT.PlayerState.PLAYING) {
-            if (!countInterval) { 
-                countInterval = setInterval(() => {
-                    count -= 1;
-                    if (count <= 0) {
-                        clearInterval(countInterval);
-                        countInterval = null;
-                        player.stopVideo(); 
-                    }
-                }, 1000);
-            }
-        } else if (event.data == YT.PlayerState.PAUSED || event.data == YT.PlayerState.ENDED) {
-            clearInterval(countInterval);
-            countInterval = null; 
-        }
-    }
-
-    function stopVideo() {
-        player.stopVideo();
-    }
+    var lessonVideoId = '<%= lessons[lessonIndex].youtube_url %>';
+    var lessonId = '<%= lessons[lessonIndex].id %>';
 </script>
+<script src="/js/youtube_player.js"></script>
+<script src="/js/req.js"></script>
 
 
 

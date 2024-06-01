@@ -1,0 +1,35 @@
+<% if (locals.mainCourses) { %>
+<div class="startLearning center">
+  <% var count; %>
+  <% if (page=="main") {count = 1} else{count = (mainCourses.length-1)} %>
+  
+    <div class="learn-cards">
+        <% mainCourses.forEach((course, index)=>{ %>
+            <% if (index <= count)  { %>
+            <a href="/training/main?id=<%= course.id %>" class="learn-card">
+                <img
+                  src="<%=course.image_source%>"
+                />
+                <div class="content-card">
+                    <div class="judul-card">
+                        <h2><%= course.judul %></h2>
+                    </div>
+                  
+                  <p>
+                    <%= course.detail.substring(0,150) %> . . .
+                  </p>
+                  <div class="card-foot">
+                    <h6>Created by: <%= course.pembuat %></h6>
+                    <small><em><%= course.total_lesson %> lessons </em></small>
+                  </div>
+                  <div class="progress-container" data-progress="<%= studentProgress[index].complete %>">
+                    <div class="progress-bar"></div>
+                    <div class="progress-text"></div>
+                  </div>
+                </div>
+            </a>
+       <% }})%>
+      
+    <% } %>
+    </div>
+  </div>
