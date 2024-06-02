@@ -111,7 +111,7 @@ a {
 .carousel-container {
   margin: auto;
   display: block;
-  width: 60%;
+  width: 70%;
 }
 
 .slider-wrapper {
@@ -147,15 +147,18 @@ a {
 
 #slide-1 {
   background-image: linear-gradient(rgba(0,212,255,0) 50%, rgba(0, 0, 0, 0.747) 90%, rgb(0, 0, 0) 100%), url('https://images.unsplash.com/photo-1581090700227-1e37b190418e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  /* background-image: url('../image/carousel/1.jpg'); */
   background-position: 0% 20%;
 }
 
 #slide-2 {
   background-image: linear-gradient(rgba(0,212,255,0) 50%, rgba(0, 0, 0, 0.747) 90%, rgb(0, 0, 0) 100%), url('https://images.unsplash.com/photo-1483478550801-ceba5fe50e8e?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  /* background-image: url('../image/carousel/2.jpg'); */
 }
 
 #slide-3 {
   background-image: linear-gradient(rgba(0,212,255,0) 50%, rgba(0, 0, 0, 0.747) 90%, rgb(0, 0, 0) 100%),url('https://images.unsplash.com/photo-1504384764586-bb4cdc1707b0?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+  /* background-image:url('../image/carousel/3.jpg'); */
   background-position: 0% 20%;
 }
 
@@ -870,3 +873,58 @@ textarea:focus {
   padding: 0;
   height: 0; 
 }
+
+/* forum---------- */
+.forum-body{
+  display: flex;
+  flex-direction: column;
+}
+.forum-title {
+  height: 20vh;
+  background-color: #ffffff;
+  color: whitesmoke;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  padding-left: 20px;
+  border-radius: 10px;
+  background: rgb(2,0,36);
+  background: linear-gradient(273deg, rgba(0, 0, 0, 0.339) 32%, rgb(0, 0, 0) 70%, rgb(0, 0, 0) 84%), url(../image/comunity.jpg);
+  background-size: 100%;
+  background-repeat: no-repeat;
+  background-position: right top;
+}
+
+.forum-switch {
+  width: 22%;
+  height: fit-content;
+  font-weight:100;
+  color: #929292;
+}
+.forum-switch .switch-content {
+  border-radius: 0;
+}
+.switch small {
+  font-weight: 200;
+}
+
+.post-container {
+  display: flex;
+  flex-direction: column;
+}
+.post {
+  display: flex;
+  justify-content: space-between;
+  background-color: white;
+  padding: 0 20px;
+  padding-bottom: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
+  cursor: pointer;
+}
+.right-post {
+  display: flex;
+  gap: 20px;
+  margin-right: 20px;
+  text-align: center;
+}
+

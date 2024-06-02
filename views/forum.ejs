@@ -6,31 +6,54 @@
   <%- include("partials/navbar.ejs") %>
   <div class="main">
     
+    <div class="center forum-body">
+      <div class="forum-title">
+        <div>
+          <h1>General</h1>
+          <p>Use this forum for general discussion, you can ask either related to the training or not </p>
+        </div>
+      </div>
+      <div class="forum-switch">
+        <div class="switch">
+          <a href="#" class="switch-content selected-content" data-target="Main">
+              <small>lastest</small>
+          </a>      
+          <a href="#" class="switch-content" data-target="Additional">
+              <small>Popular</small>
+          </a>          
+      </div>
+      </div>
+       
+        <div class="post-container">
+          <div class="post">
+            <div class="left-post">
+              <h2>judul post ini lumayan banyak harus nya</h2>
+              <small>02-09-2024</small>
+            </div>
+            <div class="right-post">
+              <div class="like">
+                <p>like</p>
+                <p>0</p> 
+              </div>
+              <div class="view">
+                <p>view</p>
+                <p>0</p>
+              </div>
+              <div class="comment">
+                <p>comment</p>
+                <p>0</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+    </div>
+
   </div>
   
-    <footer class="footer">
-      <div class="footer-section">
-        <h3>About</h3>
-        <p>
-          We are a company dedicated to providing the best service possible. Our
-          mission is to make our customers happy with our outstanding products
-          and services.
-        </p>
-      </div>
-      <div class="footer-section">
-        <h3>Copyright</h3>
-        <p>&copy; 2024 By Yoga Adi Saputra. All rights reserved.</p>
-      </div>
-      <div class="footer-section">
-        <h3>Contact</h3>
-        <p>Email: contact@company.com</p>
-        <p>Phone: (123) 456-7890</p>
-        <p>Address: 123 Main Street, City, Country</p>
-      </div>
-  
-  </footer>
+    
 
-
+  <%- include("partials/footer.ejs") %>
   <script src="https://kit.fontawesome.com/462e5cdfa2.js" crossorigin="anonymous"></script>
   <script src="/js/index.js"></script>
 </body>
