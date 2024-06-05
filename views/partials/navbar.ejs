@@ -24,10 +24,23 @@
         </li>
       </ul>
       <div class="navbar-right">
-        <a href="#notifications">
-          <i class="fa-regular fa-bell" style="color: #a3a3a3"></i>
+        <a class="dot" >
+            <%= studentName.charAt(0) + studentName.charAt(studentName.length-1) %>
         </a>
-        <a href="#login">Login</a>
+        
+        <div class="account-drop"> <!-- ini akan muncul kalau a.dot ditekan -->
+          <div class="account-header">
+            <a class="dot">
+              <%= studentName.charAt(0) + studentName.charAt(studentName.length-1) %>
+            </a>
+            <div class="account-info">
+              <h3><%= studentName %></h3>
+              <p>Email@asdasdas</p>
+            </div>
+          </div>
+          <a href="/logout" class="logout">Logout             <i class="fa-solid fa-right-from-bracket"></i></a>
+        </div>
+        
       </div>
     </nav>
   <% } %>

@@ -1,8 +1,9 @@
 <% if (locals.addCourses) { %>
 <div class="startLearning center">
+
     <div class="learn-cards">
         <% addCourses.forEach((course, index)=>{ %>
-            <% if (index <= 2)  { %>
+          
             <a href="/training?id=<%= course.id %>" class="learn-card">
                 <img src="<%=course.image_source%>"/>
                 <div class="content-card">
@@ -23,7 +24,7 @@
                   </div>
                 </div>
             </a>
-       <% }})%>
+       <% })%>
       
     <% } %>
     </div>

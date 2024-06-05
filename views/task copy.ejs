@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("partials/header.ejs") %>
+<body>
+  <%- include("partials/navbar.ejs") %>
+  <div class="main">
+    <h1 style="text-align: center;">Task Progression</h1>
+    <div class="task-page">
+  <div class="task-container">
+    <div class="task-col">
+      <% if (locals.studentTask) { 
+        const onGoingTasks = studentTask.filter(task => task.on_going); %>
+      <div class="col-header">
+        <h3>To-do (<%= onGoingTasks.length %>)</h3>
+      </div>
+        <% if (onGoingTasks.length === 0) { %>
+          <p>tidak ada task di kolom ini</p>
+        <% } else { %>
+          <% onGoingTasks.forEach((task, index) => { %>
+            <a href="#" class="task-card" id="task-card" taskIndex="<%= index %>" taskBody="<%= task.task_body %>" taskTitle="<%= task.task_title  %>" task-progress="to_do">
+              <div class="cardpin"></div>
+              <div class="task-title">
+                <h4>
+                  <%= index + 1 %>. <%= task.task_title %>
+                </h4>
+              </div>
+            </a>
+          <% }) %>
+        <% } %>
+      <% }  %>
+    </div>
+    <div class="task-col">
+      <% if (locals.studentTask) { 
+          const inReviewTasks = studentTask.filter(task => task.in_review); %>
+      <div class="col-header">
+        <h3>in-Review (<%= inReviewTasks.length %>) </h3>
+      </div>
+        <% if (inReviewTasks.length === 0) { %>
+          <p>tidak ada task di kolom ini</p>
+        <% } else { %>
+          <% inReviewTasks.forEach((task, index) => { %>
+            <a href="#" class="task-card" id="task-card" taskIndex="<%= index %>" taskBody="<%= task.task_body %>" taskTitle="<%= task.task_title %>" task-progress="in_review">
+              <div class="cardpin purple"></div>
+              <div class="task-title">
+                <h4>
+                  <%= index + 1 %>. <%= task.task_title %>
+                </h4>
+              </div>
+            </a>
+          <% }) %>
+        <% } %>
+      <% } %>
+        
+    </div>
+    <div class="task-col">
+      <div class="col-header">
+        <h3>Completed</h3>
+      </div>
+      <% if (locals.studentTask) { 
+          const completedTasks = studentTask.filter(task => task.complete); %>
+        <% if (completedTasks.length === 0) { %>
+          <p>tidak ada task di kolom ini</p>
+        <% } else { %>
+          <% completedTasks.forEach((task, index) => { %>
+            <a href="#" class="task-card" id="task-card" taskIndex="<%= index %>" taskBody="<%= task.task_body %>" taskTitle="<%= task.task_title %>" task-progress="completed">
+              <div class="cardpin green"></div>
+              <div class="task-title">
+                <h4>
+                  <%= task.task_title %>
+                </h4>
+              </div>
+            </a>
+          <% }) %>
+        <% } %>
+      <% } %>
+        
+    </div>
+  </div>
+</div>
+
+
+    <div class="task-popup hidden " id="task-popup" >
+      <div class="title-popup">
+        <div class="status-popup completed hidden">
+          <h1>COMPLETED!</h1>
+        </div>
+        <div class="status-popup in-review hidden">
+          <h1>InReview</h1>
+        </div>
+        <h2 id="title-popup">task title popup</h2>
+        <a href="#" id="popup-close"><i class="fa-solid fa-circle-xmark fa-lg" style="color: #3f3f3f;"></i></a>
+      </div>
+      <div class="body-popup" id="body-popup">
+        <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga, minus. Sapiente a odit molestias. Fugiat expedita doloribus odit obcaecati unde.</p>
+      </div>
+      <div class="revision-popup">
+        <em>Revision Note: </em>
+        <p id="revision"></p>
+      </div>
+     
+      <form id="submit-form" action="/task-answer?" method="POST"> saya mau buat query berdasarkan taskIndex
+        <textarea id="textarea" name="answer"  placeholder="this is hints" rows="15" cols="50"></textarea>
+        <br>
+        <label for="fileInput"  class="upload" > 
+          <small >Upload</small>
+          <i class="fa-solid fa-arrow-up-from-bracket fa-xl upload"></i>
+        </label>
+        <input id="fileInput" type="file">
+        <input type="submit" value="Submit" class="submit">
+      </form>
+    </div>
+
+
+  </div>
+  
+  <%- include("partials/footer.ejs") %>
+
+  <script src="https://kit.fontawesome.com/462e5cdfa2.js" crossorigin="anonymous"></script>
+  <script src="/js/index.js"></script>
+  <script src="/js/task.js"></script>
+</body>
+</html>

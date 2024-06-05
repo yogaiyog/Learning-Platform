@@ -12,7 +12,7 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', {
         height: '100%', // Set height to auto
         width: '100%', // Set width to 100% of the parent element
-        videoId: lessonVideoId, 
+        videoId:lessonVideoId , 
         playerVars: {
             'playsinline': 1
         },

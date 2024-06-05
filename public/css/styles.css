@@ -1,3 +1,20 @@
+@font-face {
+  font-family: Etnafont;
+  src: url("../image/etna-free-font.otf") format("opentype");
+}
+.etna{
+  font-family:'Etnafont';
+  letter-spacing: 2px;
+}
+.home-img{
+  background-image: url(../image/loginImage.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  width: 100%;
+  height: 100%;
+}
+
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -15,6 +32,7 @@ body {
 
 a {
   text-decoration: none;
+  color: #000;
 }
 
 header {
@@ -76,9 +94,26 @@ header {
   font-weight: 500;
 }
 
-a {
-  color: #000;
+.dot {
+  height: 40px;
+  width: 40px;
+  margin-right: 10px;
+  font-size: 16px;
+  font-weight: 800;
+  border-radius: 50%;
+  display: inline-block;
+  text-align: center;
+  align-content: center;
+  background-color: #cb6ce7;
+  color: white;
+  transition: color 0.3s;
 }
+.navbar-right a:hover {
+  background-color: #ddd;
+  color: #cb6ce7;
+  cursor: pointer;
+}
+
 
 .nav-links a:hover {
   color: #808080;
@@ -94,16 +129,51 @@ a {
   align-items: center;
 }
 
-.navbar-right a {
-  text-decoration: none;
-  color: rgb(87, 87, 87);
-  margin-left: 15px;
-  font-size: 16px;
-  transition: color 0.3s;
+
+
+.account-drop {
+  display: none;
+  position: absolute;
+  flex-direction: column;
+  top: 70px;
+  background-color: white;
+  color: black;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  z-index: 1000;
 }
 
-.navbar-right a:hover {
-  color: #ddd;
+.account-header {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+}
+
+.account-info {
+  margin-left: 10px;
+}
+
+.account-info h3 {
+  margin: 0;
+}
+
+.account-info p {
+  margin: 0;
+  font-size: 12px;
+  color: #555;
+}
+
+.account-drop a.dot {
+  background-color: #333;
+  color: white;
+}
+.logout{
+  text-align: center;
+  font-weight: 700;
+  border-top: 1px solid #ccc;
+  margin-bottom: 5px;
 }
 
 /* =========================carousel========================== */
@@ -129,7 +199,7 @@ a {
   border-radius: 0.5rem;
   -ms-overflow-style: none; /* Hide scrollbar IE and Edge */
   scrollbar-width: none; /* Hide scrollbar Firefox */
-  height: 330px;
+  height: 300px;
   width: 100%;
 }
 
@@ -143,6 +213,18 @@ a {
   scroll-snap-align: start;
   background-size: cover;
   background-position: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: end;
+  color: wheat;
+  padding: 20px;
+}
+.carousel-card {
+  background-color: #ffffff;
+  width: 30%;
+  height: 40%;
+  align-content: center;
+  box-shadow: 0 1.5rem 3rem -0.75rem hsla(0, 0%, 0%, 0.25);
 }
 
 #slide-1 {
@@ -206,7 +288,7 @@ a {
 .learn-cards {
   display: flex;
   flex-wrap: wrap; /* Optional: This allows the cards to wrap to the next line if they don't fit in one row */
-  gap: 16px; /* Optional: This adds some space between the cards */
+  gap: 32px; /* Optional: This adds some space between the cards */
 }
 
 .learn-card {
@@ -315,7 +397,7 @@ a {
   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
   transition: transform 0.3s ease;
   text-decoration: none;
-  border-radius: 15px;
+  border-radius: 5px;
 }
 .additional-course-card p {
   margin-bottom: 150px;
@@ -336,16 +418,39 @@ a {
 .announcements {
   text-align: center;
   margin-bottom: 0;
-  background-color: #fff;
+  background-color: #f5f5f5;
   border: 2px solid #d6d6d6;
+  width: 100%;
+  box-shadow: 3px 3px #6d6d6d;
+  padding: 0 5px;
 }
-.announcements hr {
-  width: 80%;
+.ann-cards-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.7s ease-out;
+  
+}
+
+.ann-cards-container.expanded {
+  max-height: 1000px; /* Set a max-height large enough to accommodate the content */
+}
+
+.ann-cards{
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 0 10px;
+  
 }
 
 .ann-card {
   margin-bottom: 20px;
+  background-color: white;
+  box-shadow: 3px 3px #6d6d6d;
+  display: flex;
+  cursor: pointer;
 }
+
 
 .footer {
   font-size: 0.8rem;
@@ -867,12 +972,7 @@ textarea:focus {
 }
 
 
-.hidden {
-  display: none;
-  margin: 0;
-  padding: 0;
-  height: 0; 
-}
+
 
 /* forum---------- */
 .forum-body{
@@ -928,3 +1028,68 @@ textarea:focus {
   text-align: center;
 }
 
+.noscroll {
+  overflow: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+.textpurple{
+  color: #cb6ce7;
+  text-shadow: 2px 2px #000000;
+}
+.textwhite{
+  color: white;
+  text-shadow: 2px 2px #000000;
+}
+
+/* alert ----------------------*/
+.alert {
+  padding: 20px;
+  background-color: #f44336;
+  color: white;
+  opacity: 1;
+  transition: opacity 0.6s;
+  position:absolute;
+  width: 80%;
+  top: 11.1%;  /* position the top  edge of the element at the middle of the parent */
+  left: 50%; /* position the left edge of the element at the middle of the parent */
+  transform: translate(-50%, -50%);
+}
+
+.alert.success {background-color: #04AA6D;}
+.alert.info {background-color: #2196F3;}
+.alert.warning {background-color: #ff9800;}
+
+.closebtn {
+  margin-left: 15px;
+  color: white;
+  font-weight: bold;
+  float: right;
+  font-size: 22px;
+  line-height: 20px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.closebtn:hover {
+  color: black;
+}
+/* alert END ----------------------*/
+
+
+
+
+
+
+
+
+
+/* paling bawah */
+
+.hidden {
+  display: none;
+  margin: 0;
+  padding: 0;
+  height: 0; 
+}

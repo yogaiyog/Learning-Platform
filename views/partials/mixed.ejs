@@ -36,31 +36,25 @@
   
     <div class="mixed-right">
       <div class="announcements">
-        <h3>
-          <i class="fa-regular fa-newspaper" style="color: #949494"></i>
-          announcement
-        </h3>
-        <a class="drop-down" href=""><i class="fa-solid fa-caret-down"></i></a>
-        <hr />
-        <div class="ann-cards">
-          <div class="ann-card">
-            <h4>This is the first announcement</h4>
-            <div class="ann-card-low">
-              <small>published by: </small>
-              <span><small>Yoga Adi Saputra</small></span><br />
-              <small>Jul 25, 2024</small>
-              <hr />
-            </div>
-          </div>
-          <div class="ann-card">
-            <h4>This is the Second announcement</h4>
-            <div class="ann-card-low">
-              <small>published by: </small>
-              <span><small>Yoga Adi Saputra</small></span><br />
-              <small>Jul 25, 2024</small>
-            </div>
-          </div>
+        <div class="ann-title">
+          <h3>
+            <i class="fa-regular fa-newspaper" style="color: #949494"></i>
+            Your Task
+          </h3>
         </div>
+        <a class="drop-down" href="#"><i class="fa-solid fa-caret-down"></i></a>
+        <div class="ann-cards-container">
+          <% studentTask.forEach((task,index)=>{ %>
+            <div class="ann-cards">
+              <a class="ann-card" href="/task">
+                <div class="cardpin" style="margin-right:3px ;"></div>
+                <p><%= index + 1 %>. <%= task.task_title %></p>
+              </a>
+            </div>
+          <% }) %>
+        </div>
+        <small><em>Do your assignments as if they were due tomorrow.</em></small>
       </div>
+    </div>
     </div>
   </div>

@@ -39,19 +39,36 @@ CREATE TABLE IF NOT EXISTS student_additionalcourse_progress (
 );
 
 
-INSERT INTO student_additionalcourse_progress (nama, student_id, lesson_id, lesson_title, complete)
+INSERT INTO student_additionalcourse_progress (nama, student_id, lesson_id, lesson_title, complete,course_id)
 SELECT
     s.nama,
     s.id AS student_id,
     a.id AS lesson_id,
     a.lesson_title,
-    FALSE
+    FALSE,
+	a.additional_course_id
 FROM
     student s
 CROSS JOIN
     additional_course_lesson a
 WHERE
     s.id = 1
+ON CONFLICT (student_id, lesson_id) DO NOTHING;
+
+--main course
+
+INSERT INTO student_course_progress (nama, student_id, lesson_id, lesson_title, complete,course_id)
+SELECT
+    s.nama,
+    s.id AS student_id,
+    a.id AS lesson_id,
+    a.lesson_title,
+    FALSE,
+	a.main_course_id
+FROM
+    student s
+CROSS JOIN
+    main_course_lesson a
 ON CONFLICT (student_id, lesson_id) DO NOTHING;
  --------------------------------------------------
 
@@ -67,6 +84,8 @@ GROUP BY
     course_id 
 
 ------------- buat tabel student-task-------------
+ALTER SEQUENCE <tablename>_<id>_seq RESTART WITH 1
+ALTER SEQUENCE student_task_student_task_id_seq RESTART WITH 1 --reset-seq
 
 CREATE TABLE student_task (
     student_task_id SERIAL PRIMARY KEY,
@@ -86,15 +105,16 @@ CREATE TABLE student_task (
     CONSTRAINT unique_student_task UNIQUE (student_id, task_id)
 );
 
-INSERT INTO student_task (nama_student, student_id, task_title, task_id, on_going, in_review, complete)
+INSERT INTO student_task (nama_student, student_id, task_title, task_id, on_going, in_review, complete, task_body)
 SELECT
     s.nama AS nama_student,
     s.id AS student_id,
     t.task_title AS task_title,
     t.id AS task_id,
-    FALSE AS on_going,
+    TRUE AS on_going,
     FALSE AS in_review,
-    FALSE AS complete
+    FALSE AS complete,
+    t.task_body
 FROM
     student s
 CROSS JOIN
