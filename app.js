@@ -30,6 +30,7 @@ db.connect((err)=> {
   if (err) throw err;
   console.log("Connected to Database!");
 });
+
 app.use(session({
   secret: process.env.SESSION_SECRET,
   resave: false,
@@ -53,6 +54,95 @@ app.get("/login", (req, res) => {
 });
 app.get("/register", (req, res) => {
   res.render("login/register.ejs");
+});
+
+
+app.post("/login",passport.authenticate("local",{
+  successRedirect:"/",
+  failureRedirect:"/login",
+}))
+
+app.get("/auth/google", passport.authenticate("google", {
+  scope: ["profile", "email"]
+}))
+
+app.get("/auth/google/duetomorrow", passport.authenticate("google", {
+  successRedirect:"/",
+  failureRedirect:"/login",
+}))
+
+function formatDate(date) {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
+async function NewStudent() {
+  try {
+    const additionalCoureProgress = await db.query(`
+    INSERT INTO student_additionalcourse_progress (nama, student_id, lesson_id, lesson_title, complete,course_id)
+    SELECT
+        s.nama,
+        s.id AS student_id,
+        a.id AS lesson_id,
+        a.lesson_title,
+        FALSE,
+      a.additional_course_id
+    FROM
+        student s
+    CROSS JOIN
+        additional_course_lesson a
+    ON CONFLICT (student_id, lesson_id) DO NOTHING;
+    `)
+
+    const mainCourseProgress = await db.query(`
+    INSERT INTO student_course_progress (nama, student_id, lesson_id, lesson_title, complete,course_id)
+    SELECT
+        s.nama,
+        s.id AS student_id,
+        a.id AS lesson_id,
+        a.lesson_title,
+        FALSE,
+      a.main_course_id
+    FROM
+        student s
+    CROSS JOIN
+        main_course_lesson a
+    ON CONFLICT (student_id, lesson_id) DO NOTHING;
+    `)
+
+    const taskProgress = await db.query(`
+    INSERT INTO student_task (nama_student, student_id, task_title, task_id, on_going, in_review, complete, task_body)
+    SELECT
+        s.nama AS nama_student,
+        s.id AS student_id,
+        t.task_title AS task_title,
+        t.id AS task_id,
+        TRUE AS on_going,
+        FALSE AS in_review,
+        FALSE AS complete,
+        t.task_body
+    FROM
+        student s
+    CROSS JOIN
+        task t
+    ON CONFLICT (student_id, task_id) DO NOTHING;
+    `)
+    
+  } catch(err) {
+    console.log("failed insert new data to students progress",err)
+  }
+  
+} 
+
+app.get("/logout", (req, res) => {
+  req.logout(function (err) {
+    if (err) {
+      return next(err);
+    }
+    res.redirect("/login");
+  });
 });
 
 app.get("/", async (req, res) => {
@@ -79,6 +169,19 @@ app.get("/", async (req, res) => {
   const data = await db.query("SELECT * FROM additional_course");
   const datarows = data.rows;
 
+  const updateProgress = await db.query(`
+          UPDATE main_course
+          SET total_lesson = (
+              SELECT COUNT(main_course_lesson.id)
+              FROM main_course_lesson
+              WHERE main_course.id = main_course_lesson.main_course_id
+              GROUP BY main_course_id
+          )
+          WHERE id IN (
+              SELECT DISTINCT main_course_id
+              FROM main_course_lesson
+          );`)
+
   res.render("index", {
     addCourse: datarows,
     studentProgress: studentProgress.rows,
@@ -90,20 +193,6 @@ app.get("/", async (req, res) => {
   } else {
     res.render("login/login.ejs")
   }
-});
-
-app.post("/login",passport.authenticate("local",{
-  successRedirect:"/",
-  failureRedirect:"/login",
-}))
-
-app.get("/logout", (req, res) => {
-  req.logout(function (err) {
-    if (err) {
-      return next(err);
-    }
-    res.redirect("/login");
-  });
 });
 
 app.post("/register", async (req, res) => {
@@ -118,19 +207,9 @@ app.post("/register", async (req, res) => {
         if (err) {console.log("error hasing password:",err)}
         else {
           const result = await db.query("INSERT INTO student (nama, email , password) VALUES ($1 , $2 , $3) returning *",[nama, username , hash]) // jika ada data dimasukan ke row baru
-          const updateProgress = await db.query(`
-          UPDATE main_course
-          SET total_lesson = (
-              SELECT COUNT(main_course_lesson.id)
-              FROM main_course_lesson
-              WHERE main_course.id = main_course_lesson.main_course_id
-              GROUP BY main_course_id
-          )
-          WHERE id IN (
-              SELECT DISTINCT main_course_id
-              FROM main_course_lesson
-          );`)
-          const user = result.rows[0]
+          await NewStudent()
+          const user = result.rows
+          console.log(user[0].nama)
           req.login(user, (err)=>{
             if (err) {
               console.log("login error:",err)
@@ -247,22 +326,70 @@ app.post("/task-answer", async(req,res)=>{
 })
 
 
-
 //--------------------forum-page----------------//
 
 app.get("/forum", async (req, res)=>{
  
   if (req.isAuthenticated()){
     const studentName = req.user[0].nama
+    const result = await db.query(`SELECT * FROM public.post ORDER BY id DESC `)
+    const result2 = await db.query("SELECT * FROM student ORDER BY id ASC")
+    const result3 = await db.query("SELECT * FROM post_comment ORDER BY id ASC")
+    const posts = result.rows
+    const students = result2.rows
+    const comments = result3.rows
+    console.log(students)
     res.render("forum.ejs", {
       page:"forum",
-      studentName
+      studentName,
+      posts,
+      students,
+      comments
     });
   } else {
     res.render("login/login.ejs")
   }
-  
 })
+
+app.get("/post/content", async (req, res)=>{
+
+  if (req.isAuthenticated()){
+    const postId = req.query.id
+    const studentName = req.user[0].nama
+    await db.query("UPDATE post SET view = view + 1 WHERE id=$1",[postId])
+    const result1 = await db.query(`SELECT * FROM public.post where id = $1 ORDER BY id ASC`, [postId])
+    const result2 = await db.query("SELECT * FROM student ORDER BY id ASC")
+    const result3 = await db.query("SELECT * FROM public.post_comment where post_id = $1 ORDER BY id ASC ", [postId])
+    const post = result1.rows[0]
+    const students = result2.rows
+    const comments = result3.rows
+    console.log(students)
+    res.render("forum-content.ejs", {
+      page:"forum",
+      studentName,
+      post,
+      students,
+      comments
+    });
+  } else {
+    res.render("login/login.ejs")
+  }
+})
+
+app.post("/forum", async (req,res)=>{
+  const title = req.body.title
+  const body = req.body.body
+  const id = req.user[0].id
+  const today = new Date();
+  const formattedDate = formatDate(today);
+  try {
+    const result1 = await db.query("insert into post (student_id, title, body, view, comment_count, date) values ($1,$2,$3,0,0,$4)", [id, title, body,formattedDate ])
+    res.redirect("/forum")
+  } catch(err) {
+    console.log("error insert to db:",err)
+  }
+})
+
 
 //-------------------------------------/training--------------------------//
 app.get("/training", async (req, res) => {
@@ -388,7 +515,6 @@ app.get("/training/content", async (req, res) => {
   } else {
     res.render("login/login.ejs")
   }
-  
 });
 
 // Handle post complete lesson
@@ -436,7 +562,6 @@ passport.use(new Strategy(async function verify (username, password, cb) {
         }
         else {
           if (same) {
-            console.log(user[0])
             return cb(null, user)
           }
           else {
@@ -453,12 +578,38 @@ passport.use(new Strategy(async function verify (username, password, cb) {
   }
 }))
 
+passport.use("google", new GoogleStrategy({
+  clientID:process.env.GOOGLE_CLIENT_ID,
+  clientSecret:process.env.GOOGLE_CLIENT_SECRET,
+  callbackURL:"http://localhost:3000/auth/google/duetomorrow",
+  userProfileURL:"https://www.googleapis.com/oauth2/v3/userinfo"
+  }, async (accesToken, refreshToken, profile, cb) => {
+    try {
+      const result = await db.query("select * from student where email = $1", [profile.email])
+      if (result.rows.length == 0) {
+        const newUser = await db.query("insert into student (nama,email,password) values ($1,$2,$3) returning *",[profile.displayName,profile.email,"google"])
+        await NewStudent()
+        cb(null, newUser.rows)
+      } else {
+        const user = result.rows
+        console.log(user)
+        cb(null, user)
+      }
+    }catch (err) {
+      cb(err)
+    }
+  })
+)
+
+
+
 passport.serializeUser((user, cb) => {
   cb(null, user);
 });
 passport.deserializeUser((user, cb) => {
   cb(null, user);
 });
+
 
 
 

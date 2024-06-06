@@ -74,3 +74,16 @@ document.addEventListener("DOMContentLoaded", function() {
       </div>
     </nav>
   </header>
+
+  {/* tanggal ------------*/}
+  function formatDate(date) {
+  const day = String(date.getDate()).padStart(2, '0');
+  const month = String(date.getMonth() + 1).padStart(2, '0'); // Months are 0-indexed
+  const year = date.getFullYear();
+  return `${day}-${month}-${year}`;
+}
+
+// Example usage
+const today = new Date();
+const formattedDate = formatDate(today);
+console.log(formattedDate); // Output: "05-06-2024" (for example) 

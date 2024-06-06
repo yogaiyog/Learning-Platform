@@ -151,8 +151,39 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 document.addEventListener('DOMContentLoaded', (event)=>{
+
+  const add_course = document.querySelector('#add-course')
+  if (add_course) {
+    add_course.addEventListener('click', (e)=>{
+      const option = document.getElementById("option")
+      option.classList.toggle("option-close")
+    })
+  }
+
   var close = document.getElementById('close-success');
-    close.addEventListener("click", (event)=>{
+  if (close) {
+      close.addEventListener("click", (event)=>{
       document.getElementById('alert-success').classList.add('hidden')
     })
+  }
+
+  const cancle_post = document.querySelector('#popup-close');
+  if (cancle_post) {
+    const newPost = document.querySelector("#newpost")
+    const popUp = document.querySelector('#task-popup');
+    newPost.addEventListener("click",(e)=>{
+      popUp.classList.remove('hidden')
+      e.preventDefault();
+    })
+    cancle_post.addEventListener("click", (event) => {
+      event.preventDefault();
+      popUp.classList.add('hidden');
+    });
+  }
+  
+    
+})
+
+document.addEventListener('DOMContentLoaded', (event)=>{
+  
 })

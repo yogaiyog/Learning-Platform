@@ -22,33 +22,55 @@
               <small>Popular</small>
           </a>          
       </div>
-      </div>
-       
-        <div class="post-container">
-          <div class="post">
-            <div class="left-post">
-              <h2>judul post ini lumayan banyak harus nya</h2>
-              <small>02-09-2024</small>
-            </div>
-            <div class="right-post">
-              <div class="like">
-                <p>like</p>
-                <p>0</p> 
-              </div>
-              <div class="view">
-                <p>view</p>
-                <p>0</p>
-              </div>
-              <div class="comment">
-                <p>comment</p>
-                <p>0</p>
-              </div>
-            </div>
-          </div>
+        <div class="newpost">
+          <a href="" id="newpost">&plus; Post</a>
         </div>
+      </div>
+       <% if (locals.posts) { %>
+        <div class="post-container">
+            <% posts.forEach((post)=>{ %>
+            <a class="post" href="/post/content?id=<%=post.id%>">
+
+              <% const user = students.find(student => student.id === post.student_id );  %> 
+              <% const nama = user ? user.nama : 'User not found' ;%>
+
+                <div class="left-post">
+                <h2><%=post.title%></h2>
+                <small><%= post.date %> || <strong>Author: <%=nama%></strong></small>
+              </div>
+              <div class="right-post">
+                <div class="view">
+                  <p>view</p>
+                  <p><%=post.view %></p>
+                </div>
+                <div class="comment-count">
+                  <p>comment</p>
+                  <% const filteredComment = comments.filter(row => row.post_id === post.id).length;%>
+                  <p><%= filteredComment %></p>
+                </div>
+              </div>
+            </a>
+            <% }) %>
+          </div>
+        
+      <% } %>
+        
 
     </div>
-
+    <div class="task-popup hidden" id="task-popup">
+      <a href="#" id="popup-close" style="text-align: right;"><i class="fa-solid fa-circle-xmark fa-lg" style="color: #3f3f3f;"></i></a>
+      <form id="submit-form" action="/forum" method="POST">
+        <label for="title" class="label">Title : </label>
+        <textarea id="textarea" name="title" placeholder="Wrtie the title here" rows="3" cols="200"></textarea>
+        <label for="body" class="label"> Body : </label>
+        <textarea id="textarea" name="body" placeholder="Wrtie the content here" rows="15" cols="200"></textarea>
+        <br>
+        <label for="fileInput" class="upload">
+          
+        <input type="submit" value="Post" class="submit">
+      </form>
+    </div>
+  </div>
   </div>
   
     

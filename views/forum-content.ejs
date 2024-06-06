@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<%- include("partials/header.ejs") %>
+<body>
+  <%- include("partials/navbar.ejs") %>
+  <% if (locals.post) { %>
+  <div class="main w80">
+    <a href="/forum" class="a"> <i class="fa-solid fa-angle-left" style="color: #a3a3a3;"></i>Forum </a>
+    <div class="post-content border-pink">
+      <div class="post-content-left">
+        <h1><%= post.title %></h1>
+        <p><%= post.body %></p>
+      </div>
+      <div class="post-content-right">
+        <% const user = students.find(student => student.id === post.student_id );  %> 
+        <% const nama = user ? user.nama : 'User not found' ;%>
+        <div> <small>Author:</small> <span style="font-weight: 600;"> <%= nama %></span> </div>
+        <div class="date"><%=post.date %></div>
+      </div>
+    </div>
+    <h3 style="text-align:center;">comment(<%=comments.length %>)</h3>
+    <% if (comments.length > 0) { %>
+      <% comments.forEach((comment)=> {  %>
+        <div class="comment">
+          <div class="commenter">
+            <% const userC = students.find(student => student.id === comment.student_id );  %> 
+            <% const namaC = userC ? userC.nama : 'User not found' ;%>
+            <p><%= namaC %><p>
+            <small><%= comment.date %></small>
+          </div>
+          <div class="comment-body">
+            <p><%=comment.body%></p>
+          </div>
+        </div>
+      <% }) %>
+    <% } %>
+    <div class="form-container">
+      <form action=""  class="comment-form" >
+        <textarea name="comment" id="" cols="50" placeholder="Write your comment here"></textarea>
+        <button type="submit">post a comment</button>
+      </form>
+    </div>
+  </div>
+  <% } %>
+    
+
+  <%- include("partials/footer.ejs") %>
+  <script src="https://kit.fontawesome.com/462e5cdfa2.js" crossorigin="anonymous"></script>
+  <script src="/js/index.js"></script>
+</body>
+</html>

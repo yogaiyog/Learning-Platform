@@ -34,6 +34,9 @@ a {
   text-decoration: none;
   color: #000;
 }
+.a:hover {
+  opacity: 0.5;
+}
 
 header {
   background-color: #ffffff;
@@ -268,6 +271,60 @@ header {
 }
 /* ===================================================== */
 
+
+.add {
+  position: fixed;
+  height: 90px;
+  width: 90px;
+  background-color: #cb6ce7; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 0 auto;
+  left: 5%;
+  bottom:10%;
+  text-shadow: 2px 2px #000000;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+  border-radius: 5px;
+  z-index: 1;
+}
+.add:hover,.option:hover{
+  cursor: pointer;
+  background-color: #808080;
+}
+
+.add p {
+  font-size: 50px; 
+  font-weight: 600;
+  color:#fafafa;
+}
+
+.add-option {
+  width: 80px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  text-align: center;
+  justify-content: center;
+  left: 5.2%;
+  bottom:23%;
+  transition: transform 0.8s ease, opacity 0.8s ease;
+  transform: translateY(0);
+  opacity: 1;
+}
+.option-close {
+  transform: translateY(100%);
+  opacity: 0;
+}
+.option {
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.5);
+  background-color: white;
+  font-weight: 500;
+  font-size: small;
+  color: #555;
+  border-radius: 5px;
+}
 .center {
   margin: auto;
   width: 70%;
@@ -487,7 +544,7 @@ header {
 }
 
 .additional-course-card:hover,
-.learn-card:hover {
+.learn-card:hover,.post:hover {
   transform: translateY(-5px); /* Menggeser elemen ke bawah saat di hover */
 }
 
@@ -929,7 +986,7 @@ textarea:focus {
 }
 
 .upload:hover{
-  font-size: 30px;
+  font-size: larger;
   color: #cb6ce7;
 }
 
@@ -951,7 +1008,6 @@ textarea:focus {
 
 .submit:hover {
   background-color: #7e7e7e;
-  box-shadow: 0 4px 10px rgba(169, 39, 174, 0.5);
 }
 
 .status-popup{
@@ -972,8 +1028,6 @@ textarea:focus {
 }
 
 
-
-
 /* forum---------- */
 .forum-body{
   display: flex;
@@ -989,17 +1043,34 @@ textarea:focus {
   padding-left: 20px;
   border-radius: 10px;
   background: rgb(2,0,36);
-  background: linear-gradient(273deg, rgba(0, 0, 0, 0.339) 32%, rgb(0, 0, 0) 70%, rgb(0, 0, 0) 84%), url(../image/comunity.jpg);
+  /* background: linear-gradient(273deg, rgba(0, 0, 0, 0.339) 32%, rgb(0, 0, 0) 70%, rgb(0, 0, 0) 84%), url(../image/comunity.jpg); */
   background-size: 100%;
   background-repeat: no-repeat;
   background-position: right top;
 }
 
 .forum-switch {
-  width: 22%;
+  width: 100%;
   height: fit-content;
   font-weight:100;
   color: #929292;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-right: 20px;
+}
+.forum-switch .switch {
+  flex: 0.2;
+  align-items: center;
+}
+.newpost{
+  text-align: center;
+  align-self: center;
+  margin-top: 20px;
+  margin-right: 20px;
+  background-color: #93e76c;
+  padding: 10px 20px;
+  border-radius: 25px;
 }
 .forum-switch .switch-content {
   border-radius: 0;
@@ -1007,10 +1078,17 @@ textarea:focus {
 .switch small {
   font-weight: 200;
 }
+.label {
+  margin: 20px;
+  line-height: 2;
+  font-weight: bolder;
+}
 
 .post-container {
   display: flex;
   flex-direction: column;
+  margin-top: 20px;
+  gap: 20px;
 }
 .post {
   display: flex;
@@ -1020,6 +1098,9 @@ textarea:focus {
   padding-bottom: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
   cursor: pointer;
+  transition: transform 0.3s ease;
+  margin-bottom: 20px;
+  
 }
 .right-post {
   display: flex;
@@ -1043,6 +1124,73 @@ textarea:focus {
   text-shadow: 2px 2px #000000;
 }
 
+.w80 {
+  width: 70%;
+  margin: auto;
+  padding: 20px 0;
+}
+.post-content,.comment {
+  display: flex;
+  background-color: white;
+  padding: 20px 20px; 
+  min-height: 200px;
+  margin: auto;
+  margin-top: 10px;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 10px;
+}
+.post-content-left {
+  display: flex;
+  flex-direction: column;
+  flex: 0.8;
+}
+.post-content-right{
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.post-content-right .author{
+  font-weight: 600x;
+}
+.comment {
+  width: 60%;
+  margin: 0;
+  margin-top: 10px;
+  min-height: 0;
+  align-items: center;
+  justify-content: space-between;
+  
+}
+.commenter {
+border-right: 3px solid #e6e6e6;
+padding-right: 20px;
+}
+.comment-body{
+  margin-left: 10px;
+  flex: 1;
+}
+
+.form-container{
+  border-radius: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  width: fit-content
+}
+.comment-form {
+  display: flex;
+  width: 80%;
+  align-items: center;
+  padding: 10px;
+  margin-top: 20px;
+  gap: 10px;
+}
+.comment-form textarea {
+border-radius: 10px;
+resize: none; overflow: auto;
+}
+.border-pink {
+  border: 2px solid #cb6ce7;
+}
 /* alert ----------------------*/
 .alert {
   padding: 20px;
