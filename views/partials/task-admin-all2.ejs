@@ -1,0 +1,32 @@
+<div class="task-admin center">
+  
+  <h1>Need to Review</h1>
+
+<table id="customers">
+  <tr>
+    <th>No</th>
+    <th>Task Title</th>
+    <% const studentsName = [...new Set(studentTasks.map(task => task.nama_student))]; %>
+    <% studentsName.forEach((student)=>{ %>
+      <th><%=student  %></th>
+    <% }) %>
+  
+  </tr>
+  <% const taskTitles = [...new Set(studentTasks.map(task => task.task_title))]; %>
+  <% taskTitles.forEach((title,index)=>{ %>
+    <tr>
+      <td style="background-color: #d8d8d8;text-align:center; width:20px"> <%= index+1 %></td>
+      <td><%= title %></td>
+      <td><%=studentTasks.%></td>
+    </tr>
+  <%  }) %>
+  
+  
+
+</table>
+
+<style>
+
+</style>
+
+</div>

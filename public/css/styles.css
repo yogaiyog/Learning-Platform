@@ -13,6 +13,12 @@
   width: 100%;
   height: 100%;
 }
+.text-center{
+  text-align: center;
+}
+p {
+  letter-spacing: 0.5px;
+}
 
 
 body {
@@ -799,9 +805,10 @@ font-weight: 200;
   height: 800px;
 }
 .video{
-  height: 100%;
+  height: 90vh;
 }
 .detail-attachment {
+  padding-top: 20px;
   width: 80%;
   align-items: center;
   margin: auto;
@@ -869,6 +876,7 @@ font-weight: 200;
   flex-direction: column;
   height: 70vh;
   width: 60%;
+  margin-bottom: 50px;
 }
 
 .task-container{
@@ -921,7 +929,9 @@ font-weight: 200;
   line-height: 0;
 }
 
-.task-popup {
+
+
+.task-popup,.review-popup {
   position: fixed;
   display: flex;
   flex-direction: column;
@@ -946,6 +956,11 @@ font-weight: 200;
 }
 .body-popup{
   margin-right: 150px;
+}
+.revision-note {
+  display: flex; align-items:center;
+  gap: 10px;
+  padding-left: 20px;
 }
 
 .task-popup input {
@@ -990,7 +1005,7 @@ textarea:focus {
   color: #cb6ce7;
 }
 
-.submit{
+.submit,.submit-review{
   display: block;
   width: 100%;
   margin: 20px 0;
@@ -1026,9 +1041,159 @@ textarea:focus {
   transform: translate(-50%, -50%) rotate(-45deg);
   color: #93e76c;
 }
+/* task-admin tabel -------------------------------------------------------------------------------------------- */
+.review-table {
+  width: 100%;
+  font-family: Arial, Helvetica, sans-serif;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.review-table td {
+  padding: 20px 10px;
+  border: 0 solid ;
+  border-radius: 10px;
+}
+.review-table a {
+  color: blue; /* Change the link color to blue */
+}
 
+.review-table td, .review-table th {
+  border: 1px solid #ddd;
+  padding: 20px;
+}
+
+.review-table th {
+  margin: 10px;
+  background-color: #ca6ae7;
+  color: white;
+  text-shadow: 2px 2px #000;
+  border-radius: 5px;
+}
+
+.review-table tr:nth-child(even){background-color: #f2f2f2;}
+
+.review-table tr:hover {background-color: #ddd;}
+
+
+.review-table th {
+  letter-spacing: 0.3px;
+}
+
+.respon-button {
+  margin:auto; width: 100%;
+  height: 30px;
+  border: none;
+  cursor: pointer;
+  background-color: initial;
+  color: rgb(0, 0, 0);
+}
+.respon-button:hover {
+  box-shadow: 4px 4px rgba(0, 0, 0,);
+  background-color: #444;
+  color: white;
+}
+
+/* ---review tabel end -------------------------------------------------------------------------- */
+
+#customers {
+  font-family: Arial, Helvetica, sans-serif;
+  border-collapse: collapse;
+  width: 100%;
+}
+
+#customers td, #customers th {
+  border: 1px solid #ddd;
+  padding: 8px;
+  border-radius: 8px;
+}
+
+#customers tr:nth-child(even){background-color: #f2f2f2;}
+
+#customers tr:hover {background-color: #ddd;}
+
+#customers th {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  text-align: left;
+  background-color: #ca6ae7;;
+  color: white;
+}
+
+th .answer {
+ width: 10px;
+}
+
+
+
+.status-table {
+  text-align: center;
+  color: white;
+  width: 100px;
+  text-shadow: 2px 2px #000000;
+}
+
+.complete-table {
+  background-color: #93e76c;
+  
+}
+.in-review-table {
+  background-color: #ca6ae7;
+}
+.ongoing-table {
+  background-color: grey;
+}
+
+/* add new task features */
+
+#task-form-add {
+  position: fixed;
+  left: 5%;
+  bottom:20%;
+  width: 600px;
+  height: 600px;
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  transform: translateY(50% 50%);
+  animation: fadeIn 0.1s ease-out;
+}
+
+/* Kelas untuk menampilkan formulir */
+
+
+/* Animasi untuk muncul */
+@keyframes fadeIn {
+  from {
+      opacity: 0;
+  }
+  to {
+      opacity: 1;
+  }
+}
+
+/* edit task ------------------------------------------------------------------------------- */
+
+
+#task-edit{
+  margin-top: 20px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+}
+
+
+
+
+
+
+
+
+/* end task adminn tabel */
 
 /* forum---------- */
+.task-admin {
+  margin-top: 50px;
+}
 .forum-body{
   display: flex;
   flex-direction: column;
@@ -1043,10 +1208,13 @@ textarea:focus {
   padding-left: 20px;
   border-radius: 10px;
   background: rgb(2,0,36);
-  /* background: linear-gradient(273deg, rgba(0, 0, 0, 0.339) 32%, rgb(0, 0, 0) 70%, rgb(0, 0, 0) 84%), url(../image/comunity.jpg); */
+  background: linear-gradient(273deg, rgba(0, 0, 0, 0.339) 32%, rgb(0, 0, 0) 70%, rgb(0, 0, 0) 84%), url(../image/chat2.jpg);
   background-size: 100%;
+  position: top right;
+  background-size: cover;
   background-repeat: no-repeat;
-  background-position: right top;
+
+  background-size: cover;
 }
 
 .forum-switch {
@@ -1088,8 +1256,34 @@ textarea:focus {
   display: flex;
   flex-direction: column;
   margin-top: 20px;
-  gap: 20px;
+  gap: 5px;
+  margin-bottom: 20px;
 }
+
+.deletePost, .close-editForm {
+  position: relative;
+  
+  background-color: black;
+  color: white;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  text-align: center;
+  align-content: center;
+  font-size: 10px;
+  cursor: pointer;
+  z-index: 10;
+}
+
+.deletePost {
+  top:60px;
+  right: 20px;
+}
+
+.close-editForm {
+  left: 95%;
+}
+
 .post {
   display: flex;
   justify-content: space-between;
@@ -1101,6 +1295,9 @@ textarea:focus {
   transition: transform 0.3s ease;
   margin-bottom: 20px;
   
+}
+.right-post p {
+  color: #838383;
 }
 .right-post {
   display: flex;
@@ -1224,12 +1421,6 @@ resize: none; overflow: auto;
   color: black;
 }
 /* alert END ----------------------*/
-
-
-
-
-
-
 
 
 

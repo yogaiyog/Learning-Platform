@@ -8,7 +8,51 @@
     <%- include("partials/alert/success.ejs") %>
   <% } %>
   
+
   <div class="main">
+    
+    <% if (locals.studentTasks) { %>
+      <div style="margin-bottom: 20vh;">                <!-- administrator/instructor features -->
+        <%- include("partials/task-admin.ejs") %>
+        <div style="display: flex; justify-content:space-around; gap:20px" class="center">
+          <%- include("partials/task-admin-tasks.ejs") %>
+          <%- include("partials/task-admin-all.ejs") %>
+        </div>
+       
+      </div>
+
+      <!-- add new task -->
+      <div class="add" id="add-task">
+        <p id="plus">&plus;</p>
+      </div>
+      
+      <div id="task-form-add" class="hidden">
+        <form id="task-form-content" action="/task-create" method="POST">
+          <div style="display:flex;flex-direction:column; width:100%">
+            <label for="task-title">Task Title:</label><br>
+            <textarea id="task-title" name="task_title" rows="2"> </textarea><br>
+            <label for="task-body">Body:</label><br>
+            <textarea id="task-body" name="task_body" rows="10"></textarea><br>
+            <label for="task-placeholder">Placeholder (Hint):</label><br>
+            <textarea id="task-placeholder" name="task_placeholder" rows="2" placeholder="ex: Paste your project link here"></textarea>
+            <br><br>
+            <input type="submit" value="Submit" class="submit">
+          </div>
+        </form>
+    </div>
+
+
+    <script>
+      document.getElementById('add-task').addEventListener('click', function() {
+          var form = document.getElementById('task-form-add');
+          form.classList.toggle('hidden');
+      });
+  
+ 
+  </script>
+
+      <% } %>
+
     <h1 style="text-align: center;">Task Progression</h1>
     <div class="task-page">
       <div class="task-container">
@@ -22,13 +66,17 @@
               <p>tidak ada task di kolom ini</p>
             <% } else { %>
               <% onGoingTasks.forEach((task, index) => { %>
-                <a href="#" class="task-card" data-task-index="<%= index %>" data-task-body="<%= task.task_body %>" data-task-title="<%= task.task_title %>" data-task-progress="to_do"  data-task-id = "<%=task.task_id %>"><!-- Changed id to data attributes -->
+                <a href="#" class="task-card" data-task-index="<%= index %>" data-task-body="<%= task.task_body %>" data-task-title="<%= task.task_title %>" 
+                  data-task-progress="to_do"  data-task-id = "<%=task.task_id %>" ref-note = "<%= task.ref %>">
                   <div class="cardpin"></div>
                   <div class="task-title">
                     <h4>
                       <%= index + 1 %>. <%= task.task_title %>
                     </h4>
                   </div>
+                  <% if (task.ref) {%>
+                    <small style="align-self: center; padding-left: 5px"><em>needs revision</em></small>
+              <% } %>
                 </a>
               <% }) %>
             <% } %>
@@ -44,7 +92,8 @@
               <p>tidak ada task di kolom ini</p>
             <% } else { %>
               <% inReviewTasks.forEach((task, index) => { %>
-                <a href="#" class="task-card" data-task-index="<%= index %>" data-task-body="<%= task.task_body %>" data-task-title="<%= task.task_title %>" data-task-progress="in_review" data-task-id = "<%=task.task_id %>"><!-- Changed id to data attributes -->
+                <a href="#" class="task-card" data-task-index="<%= index %>" data-task-body="<%= task.task_body %>" data-task-title="<%= task.task_title %>" 
+                  data-task-progress="in_review" data-task-id = "<%=task.task_id %>" ref-note = "<%= task.ref %>">
                   <div class="cardpin purple"></div>
                   <div class="task-title">
                     <h4>
@@ -66,7 +115,8 @@
               <p>tidak ada task di kolom ini</p>
             <% } else { %>
               <% completedTasks.forEach((task, index) => { %>
-                <a href="#" class="task-card" data-task-index="<%= index %>" data-task-body="<%= task.task_body %>" data-task-title="<%= task.task_title %>" data-task-progress="completed"  data-task-id = "<%=task.task_id %>"><!-- Changed id to data attributes -->
+                <a href="#" class="task-card" data-task-index="<%= index %>" data-task-body="<%= task.task_body %>" data-task-title="<%= task.task_title %>" 
+                  data-task-progress="completed"  data-task-id = "<%=task.task_id %>" ref-note = "<%= task.ref %>">
                   <div class="cardpin green"></div>
                   <div class="task-title">
                     <h4>
@@ -95,9 +145,9 @@
       <div class="body-popup" id="body-popup">
         <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga, minus. Sapiente a odit molestias. Fugiat expedita doloribus odit obcaecati unde.</p>
       </div>
-      <div class="revision-popup">
-        <em>Revision Note: </em>
-        <p id="revision"></p>
+      <div class="revision-note">
+        <small><em>Revision Note: </em></small>
+        <h5 id="revision-note"></h5>
       </div>
       <form id="submit-form" action="#" method="POST">
         <textarea id="textarea" name="answer" placeholder="this is hints" rows="15" cols="50"></textarea>

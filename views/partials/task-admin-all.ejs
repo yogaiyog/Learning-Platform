@@ -1,0 +1,38 @@
+<div class="task-admin center">
+  <h2>Students Progress:</h2>
+
+  <table id="customers">
+    <tr>
+      <th>No</th>
+      <th>Student Name</th>
+      <th>Task Title</th> 
+      <th>Progress</th> 
+    </tr>
+    <% studentTasks.forEach((row, index) => { 
+      let status = '';
+      let statusClass = '';
+      if (row.on_going) {
+        status = 'ongoing';
+        statusClass = 'ongoing-table';
+      } else if (row.in_review) {
+        status = 'in review';
+        statusClass = 'in-review-table';
+      } else if (row.complete) {
+        status = 'complete';
+        statusClass = 'complete-table';
+      }
+    %>
+      <tr >
+        <td style="background-color: #d8d8d8;text-align:center; width:20px"><%= index + 1 %></td>
+        <td><%= row.nama_student %></td>
+        <td><%= row.task_title %></td>
+        <td class="<%= statusClass %> status-table"><%= status %></td>
+      </tr>
+    <% }) %> 
+  </table>
+
+  <style>
+
+    
+  </style>
+</div>

@@ -28,15 +28,19 @@
       </div>
        <% if (locals.posts) { %>
         <div class="post-container">
-            <% posts.forEach((post)=>{ %>
+          <% posts.forEach((post)=>{ %>
+            <% if (admin) {%>
+            <a class="deletePost" href="/post-delete?id=<%=post.id%>">X</a>
+            <% } %>
             <a class="post" href="/post/content?id=<%=post.id%>">
-
+              
               <% const user = students.find(student => student.id === post.student_id );  %> 
               <% const nama = user ? user.nama : 'User not found' ;%>
-
-                <div class="left-post">
-                <h2><%=post.title%></h2>
+              
+              <div class="left-post">
+                <h2><%=post.title%> </h2>
                 <small><%= post.date %> || <strong>Author: <%=nama%></strong></small>
+               
               </div>
               <div class="right-post">
                 <div class="view">
@@ -47,6 +51,7 @@
                   <p>comment</p>
                   <% const filteredComment = comments.filter(row => row.post_id === post.id).length;%>
                   <p><%= filteredComment %></p>
+                
                 </div>
               </div>
             </a>
@@ -67,13 +72,26 @@
         <br>
         <label for="fileInput" class="upload">
           
-        <input type="submit" value="Post" class="submit">
+        <input type="submit" value="Post" class="submit" >
       </form>
     </div>
   </div>
   </div>
   
-    
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const deleteLinks = document.querySelectorAll('.deletePost');
+      deleteLinks.forEach(link => {
+        link.addEventListener('click', (e) => {
+          e.preventDefault(); // Prevent default link behavior
+          const confirmation = confirm('Are you sure want to delete this post?');
+          if (confirmation) {
+            window.location.href = link.href; 
+          }
+        });
+      });
+    });
+  </script>
 
   <%- include("partials/footer.ejs") %>
   <script src="https://kit.fontawesome.com/462e5cdfa2.js" crossorigin="anonymous"></script>

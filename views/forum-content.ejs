@@ -36,7 +36,7 @@
       <% }) %>
     <% } %>
     <div class="form-container">
-      <form action=""  class="comment-form" >
+      <form action="/post-content?id=<%=post.id%>"  class="comment-form" method="post">
         <textarea name="comment" id="" cols="50" placeholder="Write your comment here"></textarea>
         <button type="submit">post a comment</button>
       </form>

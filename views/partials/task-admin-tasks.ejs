@@ -1,0 +1,90 @@
+<div class="task-admin center">
+  <h2>Task:</h2>
+
+  <table id="customers">
+    <tr>
+      <th>No</th>
+      <th>Task Title</th>
+      <th>Task Body</th> 
+      <th>Edit</th> 
+      <th>Delete</th> 
+    </tr>
+    <% tasks.forEach((task, index) => { %>
+    <tr> 
+      <td style="background-color: #d8d8d8; text-align:center; width:20px"><%= index + 1 %></td>
+      <td><%= task.task_title %></td>
+      <td><%= task.task_body %></td>
+      <td class="text-center">
+        <a class="a-edit-task" href="#" data-task-title="<%= task.task_title %>" data-task-body="<%= task.task_body %>" id="<%= task.id %>">
+          <i class="fa-solid fa-hammer" style="color: #949494;"></i>
+        </a>
+      </td>
+      <td class="text-center"><a href="/task-delete?id=<%= task.id %>" class="delete-link"><i class="fa-regular fa-trash-can" style="color: #949494;"></i></a></td>
+    </tr>
+    <% }) %>
+  </table>
+  
+  <div id="task-edit" class="hidden">
+    <form id="task-edit-content" action="its Dynamic" method="PUT">
+      <div style="display:flex;flex-direction:column; width:100%">
+        <a class="close-editForm">&times</a>
+        <input type="hidden" id="task-edit-id" name="task_id">
+        <label for="task-title">Task Title:</label><br>
+        <textarea id="task-edit-title" name="task_title" rows="2"></textarea><br>
+        <label for="task-body">Body:</label><br>
+        <textarea id="task-edit-body" name="task_body" rows="10"></textarea><br>
+        <label for="task-placeholder">Placeholder (Hint):</label><br>
+        <textarea id="task-edit-placeholder" name="task_placeholder" rows="2" placeholder="ex: Paste your project link here"></textarea>
+        <br><br>
+        <input type="submit" value="Submit" class="submit">
+      </div>
+    </form>
+  </div>
+</div>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const deleteLinks = document.querySelectorAll('.delete-link');
+    deleteLinks.forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        if (!confirm('Are you sure you want to delete this task?')) {
+          event.preventDefault();
+        }
+      });
+    });
+
+    const editLinks = document.querySelectorAll('.a-edit-task');
+    const form = document.querySelector('#task-edit');
+    const editTitle = document.querySelector('#task-edit-title');
+    const editBody = document.querySelector('#task-edit-body');
+    const editId = document.querySelector('#task-edit-id');
+    const action = document.querySelector('#task-edit-content')
+
+    editLinks.forEach(function(link) {
+      link.addEventListener('click', function(event) {
+        event.preventDefault();
+        const taskTitle = link.getAttribute('data-task-title');
+        const taskBody = link.getAttribute('data-task-body');
+        const taskId = link.getAttribute('data-task-id');
+        const close = document.querySelector(".close-editForm")
+        close.addEventListener("click", (e)=>{
+          e.preventDefault() 
+          form.classList.add('hidden')
+        })
+
+        editTitle.value = taskTitle;
+        editBody.value = taskBody;
+        editId.value = taskId;
+        action.setAttribute("action", `/task-edit?id=${taskId}`);
+
+        form.classList.remove('hidden');
+      });
+    });
+  });
+</script>
+
+<style>
+  .hidden {
+    display: none;
+  }
+</style>
