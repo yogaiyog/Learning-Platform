@@ -25,20 +25,20 @@
       </ul>
       <div class="navbar-right">
         <a class="dot" >
-            <%= studentName.charAt(0) + studentName.charAt(studentName.length-1) %>
+            <%= studentName.charAt(0).toUpperCase()%>
         </a>
         
         <div class="account-drop"> <!-- ini akan muncul kalau a.dot ditekan -->
           <div class="account-header">
             <a class="dot">
-              <%= studentName.charAt(0) + studentName.charAt(studentName.length-1) %>
+              <%= studentName.charAt(0)%>
             </a>
             <div class="account-info">
               <h3><%= studentName %></h3>
               <p>Email@asdasdas</p>
             </div>
           </div>
-          <a href="/logout" class="logout">Logout             <i class="fa-solid fa-right-from-bracket"></i></a>
+          <a href="/logout" class="logout">Logout <i class="fa-solid fa-right-from-bracket fa-sm" style="margin-left:5px ;"></i></a>
         </div>
         
       </div>

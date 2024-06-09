@@ -24,8 +24,13 @@
                     <label for="password">Password</label>
                     <input type="password" class="form-control" name="password" id="password" required>
                   </div>
-                  <button type="submit" class="btn btn-outline-dark mt-2 ml-3">Sign In</button>
-                  <a class="btn btn-outline-info mt-2" href="/register">Register</a>
+                  <div class="flex"><button type="submit" class="btn btn-outline-dark mt-2 ml-3">Log In</button>
+                    </div>
+                    
+                  
+                  
+                 
+                  
                 </form>
 
                 <div class="col mt-4">
@@ -36,8 +41,22 @@
                       </a>
                   </div>
                 </div>
+                
+                <div class="text-center mt-3">
+                  <small><em class="font-italic">Don't have account?</em></small>
+                  <a href="/register" class="font-weight-bold text-secondary">Register</a>
+                </div>
+                
 
               </div>
+            </div>
+            <div class="demo-container">
+              <p class="">Demo Account:</p>
+              <div class="demo">
+                <button class="btn btn-primary" onclick="instructor()">Instructor</button>
+                <button class="btn btn-outline-dark" onclick="student()">Student</button>
+              </div>
+              <em class="blockquote-footer mt-2">Sign Up with local or google for best experience</em>
             </div>
           </div>
         </div>
@@ -45,5 +64,20 @@
     </div>
   </div>
 </div>
+
+<script>
+  const email = document.querySelector("#email")
+  const pass = document.querySelector("#password")
+  function instructor() {
+    email.value = "yoga@needjob.com"
+    pass.value = "duetomorrow"
+  }
+  function student() {
+    email.value = "student@duetomorrow"
+    pass.value = "123"
+  }
+  
+
+</script>
 
 <%- include('partials/footer-login') %>

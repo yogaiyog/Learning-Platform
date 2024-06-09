@@ -6,6 +6,7 @@ import { NewStudent } from './utils.js';  // Ensure the path is correct
 import db from '../db.js';  // Ensure the path is correct
 
 const router = express.Router();
+const saltRounds = 10;
 
 router.get("/login", (req, res) => {
   res.render("login/login.ejs");

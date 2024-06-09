@@ -129,3 +129,6 @@ delete from student_additionalcourse_progress where student_id = 20 ;
 delete from student_course_progress where student_id = 20 ;
 delete from student_task where student_id = 20 ;
 delete from student where id = 20 ; --need 3 row aboce deleted first
+
+--reset seq---
+ALTER SEQUENCE <tablename>_<id>_seq RESTART WITH 1 

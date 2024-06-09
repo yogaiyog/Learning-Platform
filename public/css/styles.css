@@ -28,6 +28,28 @@ p {
   letter-spacing: 0.5px;
 }
 
+.flex {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+  align-items: center;
+}
+
+.demo-container {
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  border: 2px solid #838383;
+  border-radius: 10px;
+  padding: 5px;
+  margin-top: 20px;
+  background-color: white;
+}
+
+.demo button {
+  font-size: smaller;
+}
+
 
 body {
   margin: 0;
@@ -1089,6 +1111,7 @@ textarea:focus {
 
 .review-table th {
   letter-spacing: 0.3px;
+  background-color: #7f2423;
 }
 
 .respon-button {
@@ -1098,12 +1121,15 @@ textarea:focus {
   cursor: pointer;
   background-color: initial;
   border-radius: 20px;
-  color: rgb(0, 0, 0);
+  color: white;
+  background-color: #444;
+  
 }
 .respon-button:hover {
   box-shadow: 4px 4px rgba(0, 0, 0,);
-  background-color: #444;
-  color: white;
+  background-color: white;
+  
+  color: rgb(0, 0, 0);
 }
 
 /* ---review tabel end -------------------------------------------------------------------------- */
