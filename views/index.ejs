@@ -26,12 +26,12 @@
     <a class="next" onclick="plusSlides(1)">❯</a>
     
     </div>
-    <br>
+    
     
     
     <!----------------------------------------------------------------------------------------------->
     <div class="startLearning-top center">
-      <h1>Continue Your Learning</h1>
+      <h1 class="home-title">Continue Your Learning</h1>
       <a href="/training-home">All Course ></a>
     </div>
     <%- include("partials/main.ejs") %>
@@ -44,14 +44,13 @@
         </h3>
       </div>
       <div class="buttons">
-        <a href="" class="textwhite">Forum <i class="fa-solid fa-caret-right" style="color: rgb(99, 184, 141);"></i></a>
+        <a href="/forum" class="textwhite">Forum <i class="fa-solid fa-caret-right" style="color: rgb(99, 184, 141);"></i></a>
       </div>
     </div>
 
     <div class="nextLearn center">
       <div class="nextLearn-top">
-        <h1>Prepare next modules</h1>
-        <h3>Next Topic Assigned for you</h3>
+        <h1 class="home-title">New learning Features</h1>
       </div>
       <div class="big-card">
           <div class="big-card-img">a</div>
@@ -61,23 +60,32 @@
             Write all your learning experiences the difficulties you face, the pleasure you get. Record it all for the future
           </h3>
           <small></small>
-          <small><a href="">Go to Dev-Blog <i class="fa-solid fa-caret-right" style="color: #295fbc;"></i></a></small>
+          <small><a href="https://blog-project-ebon.vercel.app/">Go to learning-Blog <i class="fa-solid fa-caret-right" style="color: #295fbc;"></i></a></small>
         </div>
       </div>
     </div>
 
+    <%- include("partials/mixed.ejs") %>
+    <%- include("partials/footer.ejs") %>
+
+    
+    
+    
+    
+    
+    
     <script>
       let slideIndex = 1;
       showSlides(slideIndex);
-      
+
       function plusSlides(n) {
         showSlides(slideIndex += n);
       }
-      
+
       function currentSlide(n) {
         showSlides(slideIndex = n);
       }
-      
+
       function showSlides(n) {
         let i;
         let slides = document.getElementsByClassName("mySlides");
@@ -93,12 +101,12 @@
         slides[slideIndex-1].style.display = "block";  
         dots[slideIndex-1].className += " active";
       }
+
+      // Tambahkan otomatisasi slideshow
+      setInterval(function() {
+        plusSlides(1);
+      }, 5000); // Ubah slide setiap 5 detik
       </script>
-
-    <%- include("partials/mixed.ejs") %>
-    <%- include("partials/footer.ejs") %>
-
-    
     <script
       src="https://kit.fontawesome.com/462e5cdfa2.js"
       crossorigin="anonymous"

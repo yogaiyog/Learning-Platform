@@ -35,6 +35,11 @@ p {
   align-items: center;
 }
 
+.home-title {
+  color: var(--dark);
+  text-shadow: 2px 2px white;
+  letter-spacing: 0.9;
+}
 .demo-container {
   display: flex;
   flex-direction: column;
@@ -460,12 +465,10 @@ background-image: url(../image/blog.jpg);
 background-size: cover;
 background-color: #000000;
 }
-.get-more-skills {
-  margin-top: 50px;
-}
+
 
 .mixed {
-  margin-top: 50px;
+  margin-top: 20px;
   display: flex;
   margin-bottom: 100px;
 }
@@ -1276,7 +1279,7 @@ th .answer {
   align-self: center;
   margin-top: 20px;
   margin-right: 20px;
-  background-color: #93e76c;
+  background-color: var(--complete);
   padding: 10px 20px;
   border-radius: 25px;
 }
