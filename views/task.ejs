@@ -13,10 +13,10 @@
     
     <% if (locals.studentTasks) { %>
       <div style="margin-bottom: 20vh;">                <!-- administrator/instructor features -->
-        <%- include("partials/task-admin.ejs") %>
+        <%- include("partials/task-review.ejs") %>
         <div style="display: flex; justify-content:space-around; gap:20px" class="center">
           <%- include("partials/task-admin-tasks.ejs") %>
-          <%- include("partials/task-admin-all.ejs") %>
+          <%- include("partials/task-student-progress.ejs") %>
         </div>
        
       </div>
@@ -70,9 +70,10 @@
                   data-task-progress="to_do"  data-task-id = "<%=task.task_id %>" ref-note = "<%= task.ref %>">
                   <div class="cardpin"></div>
                   <div class="task-title">
-                    <h4>
-                      <%= index + 1 %>. <%= task.task_title %>
-                    </h4>
+                    <div style="display: flex;">
+                      <h4><%= index+1 %> . </h4>
+                    <h4><%= task.task_title %></h4>
+                    </div>
                   </div>
                   <% if (task.ref) {%>
                     <small style="align-self: center; padding-left: 5px"><em>needs revision</em></small>
@@ -157,7 +158,7 @@
           <i class="fa-solid fa-arrow-up-from-bracket fa-xl upload"></i>
         </label>
         <input id="fileInput" type="file">
-        <input type="submit" value="Submit" class="submit">
+        <input type="submit" value="Submit" class="submit-student">
       </form>
     </div>
   </div>

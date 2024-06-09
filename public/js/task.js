@@ -35,17 +35,17 @@ document.addEventListener("DOMContentLoaded", () => {
       if (taskProgress === "in_review") {
         document.querySelector('.in-review').classList.remove('hidden');
         document.querySelector('.completed').classList.add('hidden');
-        document.querySelector('.submit').classList.add('hidden');
+        document.querySelector('.submit-student').classList.add('hidden');
         document.querySelector('.upload').classList.add('hidden');
       } else if (taskProgress === "completed") {
         document.querySelector('.completed').classList.remove('hidden');
         document.querySelector('.in-review').classList.add('hidden');
-        document.querySelector('.submit').classList.add('hidden');
+        document.querySelector('.submit-student').classList.add('hidden');
         document.querySelector('.upload').classList.add('hidden');
       } else {
         document.querySelector('.completed').classList.add('hidden');
         document.querySelector('.in-review').classList.add('hidden');
-        document.querySelector('.submit').classList.remove('hidden');
+        document.querySelector('.submit-student').classList.remove('hidden');
         document.querySelector('.upload').classList.remove('hidden');
       }
 

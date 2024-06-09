@@ -27,51 +27,7 @@ document.addEventListener('DOMContentLoaded', function() {
     }
   });
 
-//   -------------carousel---------------------------------------------------------------------- //
-document.addEventListener('DOMContentLoaded', () => {
-    const links = document.querySelectorAll('.slider-nav a');
-    const slides = document.querySelectorAll('.slide');
-    const slider = document.querySelector('.slider');
-    let currentSlide = 0;
-  
-    links.forEach(link => {
-      link.addEventListener('click', (event) => {
-        event.preventDefault();
-        const targetId = event.currentTarget.getAttribute('data-slide');
-        const targetSlide = document.getElementById(targetId);
-  
-        if (targetSlide) {
-          const slideIndex = Array.from(slides).indexOf(targetSlide);
-          scrollToSlide(slideIndex);
-          updateActiveNav(targetId);
-        }
-      });
-    });
-  
-    function updateActiveNav(targetId) {
-      links.forEach(link => {
-        if (link.getAttribute('data-slide') === targetId) {
-          link.classList.add('nav-active');
-        } else {
-          link.classList.remove('nav-active');
-        }
-      });
-    }
-  
-    function scrollToSlide(slideIndex) {
-      const slideWidth = slider.clientWidth;
-      slider.scrollLeft = slideWidth * slideIndex;
-      currentSlide = slideIndex;
-    }
-  
-    function autoSlide() {
-      currentSlide = (currentSlide + 1) % slides.length;
-      scrollToSlide(currentSlide);
-      updateActiveNav(slides[currentSlide].id);
-    }
-  
-    setInterval(autoSlide, 5000);
-  });
+
 
   // progressbar----------------------------------------------------]
   document.addEventListener("DOMContentLoaded", function() {

@@ -25,6 +25,7 @@
   </table>
   
   <div id="task-edit" class="hidden">
+    <h5 class="text-center">Edit Task</h5>
     <form id="task-edit-content" action="its Dynamic" method="PUT">
       <div style="display:flex;flex-direction:column; width:100%">
         <a class="close-editForm">&times</a>
@@ -58,7 +59,7 @@
     const editTitle = document.querySelector('#task-edit-title');
     const editBody = document.querySelector('#task-edit-body');
     const editId = document.querySelector('#task-edit-id');
-    const action = document.querySelector('#task-edit-content')
+    const action = document.querySelector('#task-edit-content');
 
     editLinks.forEach(function(link) {
       link.addEventListener('click', function(event) {
@@ -66,25 +67,46 @@
         const taskTitle = link.getAttribute('data-task-title');
         const taskBody = link.getAttribute('data-task-body');
         const taskId = link.getAttribute('data-task-id');
-        const close = document.querySelector(".close-editForm")
-        close.addEventListener("click", (e)=>{
-          e.preventDefault() 
-          form.classList.add('hidden')
-        })
+        const close = document.querySelector('.close-editForm');
+        close.addEventListener('click', function(e) {
+          e.preventDefault();
+          form.classList.add('hidden');
+        });
 
         editTitle.value = taskTitle;
         editBody.value = taskBody;
         editId.value = taskId;
-        action.setAttribute("action", `/task-edit?id=${taskId}`);
+        action.setAttribute('action', `/task-edit?id=${taskId}`);
 
         form.classList.remove('hidden');
       });
     });
+
+    // Intercept form submission
+    const editForm = document.querySelector('#task-edit-content');
+    editForm.addEventListener('submit', async function(event) {
+      event.preventDefault();
+      const formData = new FormData(editForm);
+      const data = {
+        task_id: formData.get('task_id'),
+        task_title: formData.get('task_title'),
+        task_body: formData.get('task_body'),
+      };
+
+      const response = await fetch(editForm.getAttribute('action'), {
+        method: 'PUT',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(data)
+      });
+
+      if (response.ok) {
+        window.location.reload();
+      } else {
+        alert('Failed to update task');
+      }
+    });
   });
 </script>
 
-<style>
-  .hidden {
-    display: none;
-  }
-</style>

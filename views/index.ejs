@@ -4,27 +4,32 @@
   <body>
    <%- include("partials/navbar.ejs") %>
 
-   <!---carousel -------------------------------------------------------->
-   <section class="carousel-container">
-      <div class="slider-wrapper">
-        <div class="slider">
-          <div class="slide" id="slide-1">
-            <div class="carousel-card">
-                Hi, Welcome Back <%=studentName%>
-            </div>
-          </div>
-          <div class="slide" id="slide-2"></div>
-          <div class="slide" id="slide-3"></div>
-        </div>
-        <div class="slider-nav">
-          <a href="#slide-1" data-slide="slide-1"></a>
-          <a href="#slide-2" data-slide="slide-2"></a>
-          <a href="#slide-3" data-slide="slide-3"></a>
-        </div>
-      </div>
-    </section>
+   <!---carousel-------------------------------------------------------->
+   <div class="slideshow-container">
+
+    <div class="mySlides fade">
+      <img src="image/carousel/a.jpg" style="width:100%">
+      <div class="text welcome"><h1 class="etna">Welcome Back</h1> <h1 class="etna"><%=studentName  %></h1></div>
+    </div>
     
-    <!-- --------------------------------------------------------------------------------------------->
+    <div class="mySlides fade">
+      <img src="image/carousel/b.gif" style="width:100%">
+      <div class="text"><a href="">E-Book for you <i class="fa-solid fa-caret-right" style="color: rgb(99, 184, 141);"></i></a></a></div>
+    </div>
+    
+    <div class="mySlides fade">
+      <img src="image/carousel/c.jpg" style="width:100%">
+      <div class="text"><a href="" style="color: w;"></a></div>
+    </div>
+    
+    <a class="prev" onclick="plusSlides(-1)">❮</a>
+    <a class="next" onclick="plusSlides(1)">❯</a>
+    
+    </div>
+    <br>
+    
+    
+    <!----------------------------------------------------------------------------------------------->
     <div class="startLearning-top center">
       <h1>Continue Your Learning</h1>
       <a href="/training-home">All Course ></a>
@@ -50,41 +55,46 @@
         <h3>Next Topic Assigned for you</h3>
       </div>
       <div class="big-card">
-        <img
-          src="https://img-c.udemycdn.com/course/480x270/2769460_e60c.jpg"
-          alt=""
-        />
+          <div class="big-card-img">a</div>
         <div class="big-card-content">
-          <h1>Python for Machine Learning & Data Science Masterclass</h1>
+          <h1>Track Your Learning with Blog</h1>
           <h3>
-            Learn about Data Science and Machine Learning with Python! Including
-            Numpy, Pandas, Matplotlib, Scikit-Learn and more!
+            Write all your learning experiences the difficulties you face, the pleasure you get. Record it all for the future
           </h3>
-          <small>Created by , Jose Portaila</small>
-          <small>Last Update 2024, 22 total Hours</small>
-          <div class="ratings">
-            <small>5.0</small>
-            <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-            <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-            <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-            <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-            <i class="fa-solid fa-star" style="color: #ffd43b"></i>
-          </div>
+          <small></small>
+          <small><a href="">Go to Dev-Blog <i class="fa-solid fa-caret-right" style="color: #295fbc;"></i></a></small>
         </div>
       </div>
     </div>
 
-    <!-- <div class="add" id="add-course">
-      <p>&plus;</p>
-    </div>
-    <div class="add-option" id="option">
-      <div class="option" id="a-option">
-        <p>Additional<br>Course</p>
-      </div>
-      <div class="option" id="m-option">
-        <p>Main<br>Course</p>
-      </div>
-    </div> -->
+    <script>
+      let slideIndex = 1;
+      showSlides(slideIndex);
+      
+      function plusSlides(n) {
+        showSlides(slideIndex += n);
+      }
+      
+      function currentSlide(n) {
+        showSlides(slideIndex = n);
+      }
+      
+      function showSlides(n) {
+        let i;
+        let slides = document.getElementsByClassName("mySlides");
+        let dots = document.getElementsByClassName("dot");
+        if (n > slides.length) {slideIndex = 1}    
+        if (n < 1) {slideIndex = slides.length}
+        for (i = 0; i < slides.length; i++) {
+          slides[i].style.display = "none";  
+        }
+        for (i = 0; i < dots.length; i++) {
+          dots[i].className = dots[i].className.replace(" active", "");
+        }
+        slides[slideIndex-1].style.display = "block";  
+        dots[slideIndex-1].className += " active";
+      }
+      </script>
 
     <%- include("partials/mixed.ejs") %>
     <%- include("partials/footer.ejs") %>

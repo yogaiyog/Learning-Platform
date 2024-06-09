@@ -36,6 +36,7 @@ CREATE TABLE IF NOT EXISTS student_additionalcourse_progress (
     lesson_title VARCHAR(255),
     complete BOOLEAN DEFAULT FALSE,
     CONSTRAINT unique_student_additionalcourse_lesson UNIQUE (student_id, lesson_id)
+    coure_id INTEGER
 );
 
 

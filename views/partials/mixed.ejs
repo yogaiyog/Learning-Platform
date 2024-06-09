@@ -45,13 +45,14 @@
         <a class="drop-down" href="#"><i class="fa-solid fa-caret-down"></i></a>
         <div class="ann-cards-container">
           <% studentTask.forEach((task,index)=>{ %>
+            <% if(task.on_going)  {%>
             <div class="ann-cards">
               <a class="ann-card" href="/task">
                 <div class="cardpin" style="margin-right:3px ;"></div>
-                <p><%= index + 1 %>. <%= task.task_title %></p>
+                <p class="text-center">  <%= task.task_title %></p>
               </a>
             </div>
-          <% }) %>
+          <% }}) %>
         </div>
         <small><em>Do your assignments as if they were due tomorrow.</em></small>
       </div>

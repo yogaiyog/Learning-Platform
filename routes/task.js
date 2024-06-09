@@ -142,14 +142,14 @@ router.get("/task", async (req, res)=>{
   router.put('/task-edit', async (req, res) => {
     const { task_id, task_title, task_body } = req.body;
     try {
-      await pool.query(
+      await db.query(
         'UPDATE public.task SET task_title = $1, task_body = $2 WHERE id = $3',
         [task_title, task_body, task_id]
       );
-      res.redirect('/tasks');
+      res.status(200).redirect("/task?success=yes")
     } catch (err) {
       console.error(err);
-      res.send('Error updating task');
+      res.status(500).send('Error updating task');
     }
   });
 

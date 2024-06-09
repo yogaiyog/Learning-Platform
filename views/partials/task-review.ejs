@@ -1,0 +1,95 @@
+<div class="task-admin center">
+  
+  <h1 class="text-center">Need to Review</h1>
+
+<table class="review-table">
+  <tr class="">
+    <th>No</th>
+    <th>Students Name</th>
+    <th>Tasks Title</th>
+    <th>Answers</th>
+    <th>Review</th>
+  </tr>
+    <% const in_review = studentTasks.filter(row => row.in_review);%>
+    <% in_review.forEach((row, index)=> { %>
+      <tr>
+        <td style="background-color: #d8d8d8;text-align:center; width:auto"> <%= index + 1 %>.</td>
+        <td> <%= row.nama_student %></td>
+        <td> <%= row.task_title  %></td>
+        <td class="answers"><%= row.answer %></td>
+        <td><button class="respon-button" taskId="<%= row.task_id %>" Student="<%= row.nama_student %>" title="<%= row.task_title %>" body="<%= row.task_body %>" answer="<%= row.answer %>" studentId="<%= row.student_id %>">
+          <i class="fa-solid fa-pencil"></i></button></td>
+      </tr>
+    <% }) %>
+
+    <div class="task-popup hidden" id="review-popup">
+      <div class="title-popup">
+        <h2 id="task-title-review" class="in-review-title">task title</h2>
+        <a href="#" id="review-close"><i class="fa-solid fa-circle-xmark fa-lg" style="color: #3f3f3f;"></i></a>
+      </div>
+      <small id="task-body-review">Lorem ipsum dolor sit amet consectetur adipisicing elit. Alias, assumenda.</small>
+    
+      <div class="body-popup">
+        <strong>Answer:</strong>
+        <p id="task-answer-review">this is student answer</p>
+        <small id="task-student-review">this is student answer</small>
+      </div>
+    
+      <form id="review-form" action="/task-admin" method="POST">
+        <div style="display: flex; flex-direction: column">
+          <div style="display: flex;">
+            <input type="radio" id="mark-complete" name="task-status" value="complete">
+            <label for="mark-complete">Mark Complete</label><br>
+            <input type="radio" id="revision" name="task-status" value="revision">
+            <label for="revision">Revision</label><br>
+          </div>
+          <label for="Note" style="margin-left: 10px;"><h3>Note:</h3></label>
+          <textarea name="note" id="note" rows="5" cols="100" placeholder="If complete you can congratulate your student, if not you can give a revision note"></textarea>
+          <input type="submit" value="Submit" class="submit-review" id="submit-review">
+        </div>
+      </form>   
+    </div>
+    
+  </div>
+
+</table>
+
+<style>
+
+</style>
+<script>
+  document.getElementById('review-form').addEventListener('submit', function(event) {
+    
+  });
+</script>
+<script>
+  document.addEventListener('DOMContentLoaded', () => {
+    const answers = document.querySelectorAll('.answers');
+    answers.forEach(answer => {
+      const text = answer.innerHTML;
+      const urlPattern = /(https?:\/\/[^\s]+)/g;
+      const newText = text.replace(urlPattern, '<a href="$1" target="_blank">$1</a>');
+      answer.innerHTML = newText;
+    });
+
+    document.getElementById('review-form').addEventListener('submit', function(event) {
+      const radios = document.querySelectorAll('input[name="task-status"]');
+      let formValid = false;
+  
+      radios.forEach((radio) => {
+        if (radio.checked) {
+          formValid = true;
+        }
+      });
+  
+      if (!formValid) {
+        event.preventDefault(); // Mencegah pengiriman formulir
+        alert('Please select a task status before submitting.');
+      }
+    });
+    
+  });
+
+  
+</script>
+</div>

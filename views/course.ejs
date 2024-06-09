@@ -7,10 +7,10 @@
 <div class="button-row center">
     <% if (locals.type) {%>
         <a href="/" class="grey-button">Main Course </a>
-        <a href="/training/content?id=<%= course.id %>&type=main" class="button enroll">Enroll Course</a>
+        <a href="/training/content?id=<%= course.id %>&type=main" class="button enroll">Go to Lesson</a>
     <% } else { %>  
         <a href="/" class="grey-button">Additional Course </a>
-        <a href="/training/content?id=<%= course.id %>" class="button enroll">Enroll Course</a>
+        <a href="/training/content?id=<%= course.id %>" class="button enroll">Go to lesson</a>
     <% } %>
     
   </div>
