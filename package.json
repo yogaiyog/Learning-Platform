@@ -1,15 +1,17 @@
 {
   "dependencies": {
+    "bcrypt": "^5.1.1",
     "body-parser": "^1.20.2",
+    "cookie-session": "^2.1.0",
     "dotenv": "^16.4.5",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "pg": "^8.11.5",
-    "bcrypt": "^5.1.1",
     "express-session": "^1.18.0",
+    "memorystore": "^1.6.7",
     "passport": "^0.7.0",
     "passport-google-oauth2": "^0.2.0",
-    "passport-local": "^1.0.0"
+    "passport-local": "^1.0.0",
+    "pg": "^8.11.5"
   },
   "name": "online-learning-platform",
   "version": "1.0.0",

@@ -627,6 +627,7 @@ COURSE PAGE  -------------------------------------------------------------------
 }
 .course-body {
   display: flex;font-family: "Manrope", sans-serif;
+  margin-bottom: 40px;
   
 }
 .left-course-body {
@@ -636,7 +637,7 @@ COURSE PAGE  -------------------------------------------------------------------
 }
 .left-course-body img {
   width: 90%;
-  height: 500px;
+  min-height: 500px;
   display: block;
   margin: auto;
   margin-top: 50px;
@@ -647,7 +648,7 @@ COURSE PAGE  -------------------------------------------------------------------
   padding: 20px 20px;
 }
 .course-content .content {
-  height: 400px;
+  min-height: 400px;
 }
 .ratings span {
   font-size: 1rem;

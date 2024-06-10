@@ -9,8 +9,9 @@ import { Strategy } from "passport-local";
 import GoogleStrategy from "passport-google-oauth2";
 import db from './db.js';  // Ensure the path is correct
 import bcrypt from "bcrypt"
+import memorystore from 'memorystore';
 
-// Initialize dotenv to read .env file
+const MemoryStore = memorystore(session);
 dotenv.config();
 
 const app = express();
@@ -25,7 +26,17 @@ app.set('view engine', 'ejs');
 // Middleware
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(session({ secret: process.env.SESSION_SECRET, resave: false, saveUninitialized: true }));
+
+app.use(session({ 
+  secret: process.env.SESSION_SECRET, resave: false, 
+  saveUninitialized: true,
+  cookie: { maxAge: 86400000 },
+  store: new MemoryStore({
+    checkPeriod: 86400000 // prune expired entries every 24h
+  }),
+
+ }));
+
 app.use(passport.initialize());
 app.use(passport.session());
 
