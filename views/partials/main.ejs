@@ -19,8 +19,12 @@
                     <%= course.detail.substring(0,150) %> . . .
                   </p>
                   <div class="card-foot">
-                    <h6>Created by: <%= course.pembuat %></h6>
-                    <small><em><%= course.total_lesson %> lessons </em></small>
+                    <div style="display: flex;flex:1;margin-left:20px">
+                      <em style="font-size: smaller; align-self:center">by:</em>
+                      <p> <%= course.pembuat %></p>
+                    </div>
+                    
+                    <small style="margin-right: 20px;"><em><%= course.total_lesson %> lessons </em></small>
                   </div>
                   <div class="progress-container" data-progress="<%= studentProgress[index].complete %>">
                     <div class="progress-bar"></div>

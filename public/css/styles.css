@@ -391,8 +391,9 @@ header {
   width: calc((100% - 32px) / 2);
   display: flex;
   height: 270px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Tambahkan bayangan */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.5); /* Tambahkan bayangan */
   transition: transform 0.3s ease;
+  border-radius: 10px;
 }
 .judul-card {
   line-height: 10px;
@@ -427,7 +428,13 @@ header {
   justify-content: space-between;
   align-items: center;
   gap: 25px;
-  width: 80%;
+  width: 100%;
+  color: white;
+  font-family: monospace;
+  background-color: #707070;
+}
+.card-foot-top {
+  display: flex;
 }
 
 /* banner-------------------------------------- */
