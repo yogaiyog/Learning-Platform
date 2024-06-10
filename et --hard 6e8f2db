@@ -1,0 +1,24 @@
+[33m2469f2a[m[33m ([m[1;36mHEAD -> [m[1;32mmain[m[33m)[m HEAD@{0}: commit: Remove node_modules from git and add to .gitignore
+[33mf8a7e43[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{1}: Branch: renamed refs/heads/main to refs/heads/main
+[33mf8a7e43[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{3}: reset: moving to origin/main
+[33m6e8f2db[m HEAD@{4}: commit: commit minor change
+[33me4c1341[m HEAD@{5}: commit: immigare to new directory for seperating routes
+[33maf6c9b9[m HEAD@{6}: commit: backup commit going to do major change
+[33mb825ae7[m HEAD@{7}: commit: finish adding CRUD for task-page-admin
+[33mf8a7e43[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{8}: reset: moving to HEAD
+[33mf8a7e43[m[33m ([m[1;31morigin/main[m[33m)[m HEAD@{9}: commit: complete forum post features
+[33mbda314f[m HEAD@{10}: commit: complete task submit
+[33mbbbd385[m HEAD@{11}: reset: moving to HEAD
+[33mbbbd385[m HEAD@{12}: reset: moving to HEAD
+[33mbbbd385[m HEAD@{13}: commit: add forum ui page
+[33meb86d9a[m HEAD@{14}: commit: add task feature
+[33me68ff66[m HEAD@{15}: commit: finish add timer fiture in content
+[33m104164f[m HEAD@{16}: commit: finish content and percentage display
+[33m3299586[m HEAD@{17}: commit: add progress integration to content page
+[33mc02b057[m HEAD@{18}: commit: complete dataa base query for additional course and learning pages frontend
+[33m29eeeb9[m HEAD@{19}: commit: add database
+[33m6868cba[m HEAD@{20}: commit: add home menu
+[33m7e4db94[m HEAD@{21}: reset: moving to HEAD
+[33m7e4db94[m HEAD@{22}: Branch: renamed refs/heads/main to refs/heads/main
+[33m7e4db94[m HEAD@{24}: commit: add git ignore
+[33m99ba485[m HEAD@{25}: commit (initial): initial commit. finish node app set up and navbar

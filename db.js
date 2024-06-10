@@ -33,7 +33,7 @@ db.connect((err) => {
 
 process.on('SIGINT', async () => {
   try {
-    await client.end();
+    await db.end();
     console.log('Connection closed');
     process.exit();
   } catch (err) {
